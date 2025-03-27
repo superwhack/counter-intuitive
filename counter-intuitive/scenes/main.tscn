@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpptyml8my5te"]
+
+[ext_resource type="PackedScene" uid="uid://dex6iyyo1io4n" path="res://scenes/counter.tscn" id="1_o5qli"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Counter" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(394, 247)
