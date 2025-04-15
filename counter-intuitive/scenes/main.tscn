@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpptyml8my5te"]
+[gd_scene load_steps=4 format=3 uid="uid://dpptyml8my5te"]
 
+[ext_resource type="Script" uid="uid://clrfh61lutycf" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dex6iyyo1io4n" path="res://scenes/counter.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dge4f8gmo3c60" path="res://scenes/board.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_0wfyh")
 
 [node name="Counter" parent="." instance=ExtResource("1_o5qli")]
 position = Vector2(394, 247)
+
+[node name="Board" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(848, 415)
+scale = Vector2(4.02521, 4.02521)
