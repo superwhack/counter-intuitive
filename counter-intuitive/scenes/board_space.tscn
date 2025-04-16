@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bethrlvjsheva"]
+[gd_scene load_steps=4 format=3 uid="uid://bethrlvjsheva"]
 
 [ext_resource type="Script" uid="uid://du3ix8pnmhwjk" path="res://scenes/board_space.gd" id="1_b3f3s"]
 [ext_resource type="Texture2D" uid="uid://w6qmnph32w68" path="res://icon.svg" id="1_qlrc0"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3f3s"]
+size = Vector2(64, 64)
+
 [node name="BoardSpace" type="Node2D"]
+z_index = 1
 script = ExtResource("1_b3f3s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_qlrc0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_b3f3s")

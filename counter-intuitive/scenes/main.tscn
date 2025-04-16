@@ -8,8 +8,15 @@
 script = ExtResource("1_0wfyh")
 
 [node name="Counter" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(394, 247)
+position = Vector2(-442, 108)
+
+[node name="Counter2" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(-441, 0)
+
+[node name="Counter3" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(-437, -132)
 
 [node name="Board" parent="." instance=ExtResource("3_sugp2")]
-position = Vector2(848, 415)
-scale = Vector2(4.02521, 4.02521)
+position = Vector2(322, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]

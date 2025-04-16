@@ -7,7 +7,10 @@
 [node name="Board" type="Node2D"]
 z_index = -1
 script = ExtResource("1_tx6nw")
+spaceSize = Vector2(64, 64)
+spacing = Vector2(16, 16)
 boardSpace = ExtResource("2_nglv8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
 texture = ExtResource("2_tx6nw")
