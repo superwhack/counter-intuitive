@@ -16,6 +16,7 @@ lerpSpeedFactor = 10.0
 texture = ExtResource("2_8e5hq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.04, 1.04)
 shape = SubResource("CircleShape2D_8e5hq")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

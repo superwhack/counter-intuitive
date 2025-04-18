@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @export var lerpSpeedFactor = 5.0
 
@@ -10,10 +10,10 @@ var initialMousePosition : Vector2
 var deltaPosition : Vector2
 var desiredPosition : Vector2
 
-var counterManager
+var counterManager : CounterManager
 
 func _ready() -> void:
-	counterManager = get_parent()
+	counterManager = Globals.counterManager
 	desiredPosition = position
 	pass # Replace with function body.
 
@@ -47,9 +47,9 @@ func _process(delta: float) -> void:
 	##
 
 func OnPickup():
-		reparent(counterManager, true)
+		reparent(Globals.main, true)
 		modulate = Color(1, 1, 1, 0.5)
-	
+		
 	
 func OnRelease():
 	modulate = Color(1, 1, 1, 1)
@@ -60,12 +60,16 @@ func OnRelease():
 	physPointQuery.collision_mask = 2
 	
 	var results = Globals.directSpaceState.intersect_point(physPointQuery)
-	for item in results: 
-		var newParentBoardSpace = item["collider"].get_parent()
+	if (results.size() > 0):
+		var newParentBoardSpace = results[0]["collider"].get_parent()
 		
 		reparent(newParentBoardSpace, true)
 		
 		desiredPosition = Vector2.ZERO
+	else:
+		reparent(counterManager.handNode)
+		desiredPosition = Vector2.ZERO
+		
 		
 	
 func _on_mouse_entered() -> void:
