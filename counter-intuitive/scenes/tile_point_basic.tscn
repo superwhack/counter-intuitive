@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://sea4jg30yijn"]
+
+[ext_resource type="PackedScene" uid="uid://dex6iyyo1io4n" path="res://scenes/tile.tscn" id="1_n2wmw"]
+[ext_resource type="Script" uid="uid://cnp8k0r42kxkb" path="res://scenes/tile_point_basic.gd" id="2_786e0"]
+
+[node name="TilePointBasic" instance=ExtResource("1_n2wmw")]
+script = ExtResource("2_786e0")

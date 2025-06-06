@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddw48c7wbi64j"]
+
+[ext_resource type="Script" uid="uid://c5kem64eenink" path="res://scripts/tile_manager.gd" id="1_el2rg"]
+[ext_resource type="PackedScene" uid="uid://bjlbi0dvli84u" path="res://scenes/hand_slot.tscn" id="3_xbsgu"]
+
+[node name="CounterManager" type="Control" node_paths=PackedStringArray("handNode")]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_el2rg")
+handNode = NodePath("Hand")
+handSlot = ExtResource("3_xbsgu")
+
+[node name="Hand" type="HFlowContainer" parent="."]
+layout_mode = 0
+offset_right = 546.0
+offset_bottom = 436.0
+mouse_filter = 2
+
+[node name="Deck" type="Node" parent="."]
+
+[node name="Discard" type="Node" parent="."]

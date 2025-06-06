@@ -9,7 +9,7 @@ var boardSlotSize : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	Globals.board = self
-	boardSlotSize = Globals.boardSlotSize
+	boardSlotSize = Reference.boardSlotSize
 	
 	var currentPos : Vector2 = (-2 * boardSlotSize) + (-2 * spacing)
 	print (currentPos)
