@@ -11,6 +11,7 @@ enum TILE_LOCATIONS {
 	deck,
 	discard,
 	board,
+	none
 }
 
 

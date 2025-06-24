@@ -4,20 +4,22 @@ class_name TileManager
 @export var handNode : Node
 var handArray : Array
 
-@export var deckNode : Node
+@export var deckNode : Node2D
 var deckArray : Array
 
-@export var discardNode : Node
+@export var discardNode : Node2D
 var discardArray : Array
 
 @export var tileBasic : PackedScene
 @export var handSlot : PackedScene
 
-var boardArray : Array
+var triggerOrderArray : Array
 
 var currentOnBoardTileTriggerIndex : int
 var handSlots : Array
 var lastOpenIndex : int
+
+var heldTile : Tile
 
 func _ready() -> void:
 	Globals.tileManager = self
@@ -28,14 +30,10 @@ func _ready() -> void:
 	
 	
 	# CONNECTING SIGNALS
-	SignalBus.SetButtonPressed.connect(_on_set_button_pressed)
+	SignalBus.PlayButtonPressed.connect(_on_play_button_pressed)
 	SignalBus.PullNextTileOnBoardTrigger.connect(TriggerNextTileOnBoard)
-	
-	
-func _process(delta: float) -> void:
-	if (Input.is_action_just_pressed("debug_add_tile")):
-		debug_create_tile()
 
+#region Hand Management
 func CreateNewHandSlot() -> Node:
 	var newSlot = handSlot.instantiate()
 	handNode.add_child(newSlot)
@@ -45,7 +43,6 @@ func CreateNewHandSlot() -> Node:
 func ReparentToHandSlot(tile : Node2D, slot : Control):
 	tile.reparent(slot, true)
 	tile.desiredPosition = Reference.handSlotSize / 2
-	
 	
 func ReparentToLastOpenSlot(tile : Node2D):
 	ReparentToHandSlot(tile, handSlots[lastOpenIndex])
@@ -58,26 +55,74 @@ func ShiftTilesLeftInHand(index : int):
 		if (slotChildren.size() != 0):
 			ReparentToHandSlot(slotChildren[0], handSlots[i-1])
 		
-	
 func ShiftTilesLeftInHandFromTile(tile : Node2D):
 	ShiftTilesLeftInHand(handSlots.find(tile.get_parent()))
+#endregion	
+
+#region Deck Management
+func DrawTopTileFromDeck():
+	AddTileToLocation(deckArray.pop_front(), Reference.TILE_LOCATIONS.hand)
 	
-func debug_create_tile():
-	var newTile = tileBasic.instantiate()
-	newTile.tileManager = self
-	newTile.location = Reference.TILE_LOCATIONS.hand
-	add_child(newTile)
-	ReparentToLastOpenSlot(newTile)
+func DiscardTile(tile : Tile):
+	AddTileToLocation(tile, Reference.TILE_LOCATIONS.discard)
+	
+func Reshuffle():
+	deckArray.shuffle()
+	
+func AddTileToDeck(tile : Tile):
+	AddTileToLocation(tile, Reference.TILE_LOCATIONS)
+	
+func AddTileToLocation(tile : Tile, location : Reference.TILE_LOCATIONS):
+	RemoveTileFromManagerArrays(tile)
+	tile.location = location
+	AddTileToArrayFromLocation(tile)
+	ReparentTileFromLocation(tile)
+	
+func AddTileToArrayFromLocation(tile):
+	match(tile.location):
+		Reference.TILE_LOCATIONS.hand:
+			handArray.append(tile)
+		Reference.TILE_LOCATIONS.deck:
+			deckArray.append(tile)
+		Reference.TILE_LOCATIONS.discard:
+			discardArray.append(tile)
 
+func ReparentTileFromLocation(tile):
+	match(tile.location):
+		Reference.TILE_LOCATIONS.hand:
+			ReparentToLastOpenSlot(tile)
+		Reference.TILE_LOCATIONS.deck:
+			tile.reparent(deckNode)
+		Reference.TILE_LOCATIONS.discard:
+			tile.reparent(discardNode)
 
+			
+func RemoveTileFromManagerArrays(tile : Tile):
+	match(tile.location):
+		Reference.TILE_LOCATIONS.hand:
+			handArray.erase(tile)
+		Reference.TILE_LOCATIONS.deck:
+			deckArray.erase(tile)
+		Reference.TILE_LOCATIONS.discard:
+			discardArray.erase(tile)
+		Reference.TILE_LOCATIONS.board:
+			Globals.board.RemoveTileFromBoard(tile)
+#endregion
+
+# connected to PullNextTileOnBoardTrigger signal
 func TriggerNextTileOnBoard():
-	currentOnBoardTileTriggerIndex += 1
-	if (currentOnBoardTileTriggerIndex == boardArray.size()):
+	if (currentOnBoardTileTriggerIndex == triggerOrderArray.size()):
+		print(triggerOrderArray.size())
+		while(triggerOrderArray.size() > 0):
+			AddTileToLocation(triggerOrderArray[0], Reference.TILE_LOCATIONS.discard)
 		print("All done triggering boss")
 	else:
-		boardArray[currentOnBoardTileTriggerIndex].OnBoardTrigger()
+		triggerOrderArray[currentOnBoardTileTriggerIndex].OnBoardTrigger()
+		currentOnBoardTileTriggerIndex += 1
 
-func _on_set_button_pressed():
+# connected to Set Button signal
+func _on_play_button_pressed():
 	print("set button pressed")
-	currentOnBoardTileTriggerIndex = -1
+	currentOnBoardTileTriggerIndex = 0
 	TriggerNextTileOnBoard()
+	

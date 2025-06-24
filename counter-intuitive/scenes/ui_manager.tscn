@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1cdu4upc0o56"]
 
 [ext_resource type="Script" uid="uid://b0m15eb1d0srd" path="res://scenes/ui_manager.gd" id="1_rwj1f"]
-[ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://scenes/set_button.tscn" id="2_iku3t"]
+[ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://scenes/play_button.tscn" id="2_iku3t"]
 
 [node name="UI Manager" type="CanvasLayer" node_paths=PackedStringArray("scoreNumberLabel")]
 script = ExtResource("1_rwj1f")
@@ -21,3 +21,7 @@ offset_bottom = 24.0
 text = "0"
 
 [node name="Set Button" parent="." instance=ExtResource("2_iku3t")]
+offset_left = 823.0
+offset_top = 619.0
+offset_right = -157.0
+offset_bottom = -1.0

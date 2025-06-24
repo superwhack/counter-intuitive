@@ -3,7 +3,7 @@ extends Node2D
 var main : Main
 var board : Board
 var tileManager : TileManager
-
+var uiManager : UIManager
 var directSpaceState : PhysicsDirectSpaceState2D
 var mouseWorldPosition : Vector2
 var camera : Camera2D

@@ -1,14 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddw48c7wbi64j"]
+[gd_scene load_steps=4 format=3 uid="uid://ddw48c7wbi64j"]
 
 [ext_resource type="Script" uid="uid://c5kem64eenink" path="res://scripts/tile_manager.gd" id="1_el2rg"]
+[ext_resource type="PackedScene" uid="uid://sea4jg30yijn" path="res://scenes/tile_point_basic.tscn" id="2_u7acr"]
 [ext_resource type="PackedScene" uid="uid://bjlbi0dvli84u" path="res://scenes/hand_slot.tscn" id="3_xbsgu"]
 
-[node name="CounterManager" type="Control" node_paths=PackedStringArray("handNode")]
+[node name="CounterManager" type="Control" node_paths=PackedStringArray("handNode", "deckNode", "discardNode")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_el2rg")
 handNode = NodePath("Hand")
+deckNode = NodePath("Deck")
+discardNode = NodePath("Discard")
+tileBasic = ExtResource("2_u7acr")
 handSlot = ExtResource("3_xbsgu")
 
 [node name="Hand" type="HFlowContainer" parent="."]
@@ -17,6 +21,8 @@ offset_right = 546.0
 offset_bottom = 436.0
 mouse_filter = 2
 
-[node name="Deck" type="Node" parent="."]
+[node name="Deck" type="Node2D" parent="."]
+position = Vector2(0, 520)
 
-[node name="Discard" type="Node" parent="."]
+[node name="Discard" type="Node2D" parent="."]
+position = Vector2(193, 523)

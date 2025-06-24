@@ -25,7 +25,14 @@ func _process(delta: float) -> void:
 	# if we just clicked and we are hovering this tile, pick it up
 	if (Input.is_action_just_pressed("click")):
 		if (hover == true):
-			OnPickup()
+			if (tileManager.heldTile == null):
+				match (location):
+					Reference.TILE_LOCATIONS.hand:
+						OnPickup()
+					Reference.TILE_LOCATIONS.board:
+						OnPickup()
+					_:
+						pass
 	if (Input.is_action_just_pressed("right_click")):
 		if (location == Reference.TILE_LOCATIONS.board):
 			location = Reference.TILE_LOCATIONS.hand
@@ -53,13 +60,16 @@ func _process(delta: float) -> void:
 
 # what do do when the tile is picked up
 func OnPickup():
+	tileManager.heldTile = self
 	match(location):
 		Reference.TILE_LOCATIONS.hand:
 			tileManager.ShiftTilesLeftInHandFromTile(self)
 			
 		Reference.TILE_LOCATIONS.board:
-			tileManager.boardArray.erase(self)
-			
+			Globals.board.RemoveTileFromBoard(self)
+
+		
+		
 	reparent(Globals.main, true)
 	modulate = Color(1, 1, 1, 0.5)
 	location = Reference.TILE_LOCATIONS.pickup
@@ -68,6 +78,7 @@ func OnPickup():
 
 # what to do when the tile is released	
 func OnRelease():
+	tileManager.heldTile = null
 	# reset the transparency
 	modulate = Color(1, 1, 1, 1)
 	
@@ -83,20 +94,17 @@ func OnRelease():
 	# if you drop onto a board slot, reparent to it and change the location.
 	if (results.size() > 0):
 		var result = results[0]["collider"].get_parent()
-		if (result is BoardSlot):
-			reparent(result, true)
-			desiredPosition = Vector2.ZERO
-			location = Reference.TILE_LOCATIONS.board
+		if (result is BoardSlot) && (result.tile == null):
 			
-			tileManager.boardArray.append(self)
+			Globals.board.AddTileToBoard(self, result)
+			
 		#otheriwse, return to hand
 		else:
-			location = Reference.TILE_LOCATIONS.hand
-			tileManager.ReparentToLastOpenSlot(self)
+			tileManager.AddTileToLocation(self, Reference.TILE_LOCATIONS.hand)
 	# if there are no results, return to the hand.
 	else:
-		location = Reference.TILE_LOCATIONS.hand
-		tileManager.ReparentToLastOpenSlot(self)
+		tileManager.AddTileToLocation(self, Reference.TILE_LOCATIONS.hand)
+
 		
 		
 		

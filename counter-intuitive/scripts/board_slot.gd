@@ -3,6 +3,7 @@ class_name BoardSlot
 var sprite
 var snapArea
 
+var tile : Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite = $Sprite2D

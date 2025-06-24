@@ -4,6 +4,7 @@ class_name UIManager
 @export var scoreNumberLabel : Label
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Globals.uiManager = self
 	pass # Replace with function body.
 
 
@@ -13,3 +14,6 @@ func _process(delta: float) -> void:
 
 func UpdateScore():
 	scoreNumberLabel.text = str(Globals.main.score)
+
+func UpdatePlays():
+	pass
