@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8av6svstjroi"]
+
+[ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
+
+[node name="Reference" type="Node2D"]
+script = ExtResource("1_rdp6k")

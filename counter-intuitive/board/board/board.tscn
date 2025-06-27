@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dge4f8gmo3c60"]
+
+[ext_resource type="Script" uid="uid://c8weik1lixbkh" path="res://board/board/board.gd" id="1_tx6nw"]
+[ext_resource type="PackedScene" uid="uid://bethrlvjsheva" path="res://board/board slot/board_slot.tscn" id="2_nglv8"]
+[ext_resource type="Texture2D" uid="uid://w6qmnph32w68" path="res://icon.svg" id="2_tx6nw"]
+
+[node name="Board" type="Node2D"]
+z_index = -1
+script = ExtResource("1_tx6nw")
+spacing = Vector2(16, 16)
+boardSlot = ExtResource("2_nglv8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_tx6nw")
