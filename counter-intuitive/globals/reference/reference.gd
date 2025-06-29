@@ -32,7 +32,7 @@ var boardSlotSize : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	boardSlotSize = Vector2(64, 64)
-	handSlotSize = boardSlotSize
+	handSlotSize = Vector2(64, 64)
 	pass # Replace with function body.
 
 
