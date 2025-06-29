@@ -10,7 +10,7 @@ var circleDefaultScale = 0.5
 var starDefaultScale = 1
 
 @export var scaleFactor = 1.0;
-@export_range(0, 10) var desiredScale = 1.0;
+@export_range(0, 1000) var desiredScale = 1.0;
 
 var lerpScale = 2;
 # Called when the node enters the scene tree for the first time.

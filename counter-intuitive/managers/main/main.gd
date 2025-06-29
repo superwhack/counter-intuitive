@@ -34,6 +34,8 @@ var money : int
 
 var handSize : int
 
+var triggerArray : Array
+
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
 	Globals.main = self

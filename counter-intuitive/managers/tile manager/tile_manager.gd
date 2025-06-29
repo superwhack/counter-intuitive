@@ -153,6 +153,7 @@ func DrawHand():
 		DrawTopTileFromDeck()
 
 func CreateHand():
+	print("create hand")
 	for i in main.handSize:
 		CreateNewHandSlot()
 	lastOpenIndex = 0;

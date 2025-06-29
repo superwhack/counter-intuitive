@@ -3,6 +3,7 @@ class_name Tile
 
 @export var lerpSpeedFactor = 10
 
+@export var sprite : Sprite2D
 var pickedUp: bool = false
 var hover : bool = false
 var location : int
@@ -125,6 +126,7 @@ func OnRelease():
 # update hover when the mouse enters or exits the tile
 func _on_mouse_entered() -> void:
 	hover = true;
+	print(name + " im hovered")
 	
 func _on_mouse_exited() -> void:
 	hover = false;

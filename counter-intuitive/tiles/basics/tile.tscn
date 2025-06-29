@@ -6,10 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e5hq"]
 radius = 31.257
 
-[node name="Tile" type="Area2D"]
+[node name="Tile" type="Area2D" node_paths=PackedStringArray("sprite")]
 z_index = 1
 collision_mask = 0
 script = ExtResource("1_ywnoi")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jy7pm")

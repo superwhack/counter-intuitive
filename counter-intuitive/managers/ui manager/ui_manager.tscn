@@ -1,23 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1cdu4upc0o56"]
+[gd_scene load_steps=5 format=3 uid="uid://b1cdu4upc0o56"]
 
 [ext_resource type="Script" uid="uid://b0m15eb1d0srd" path="res://managers/ui manager/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://buttons/play button/play_button.tscn" id="2_iku3t"]
+
+[sub_resource type="FontFile" id="FontFile_mdx1k"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/60/0/ascent = 0.0
+cache/0/60/0/descent = 0.0
+cache/0/60/0/underline_position = 0.0
+cache/0/60/0/underline_thickness = 0.0
+cache/0/60/0/scale = 1.0
+cache/0/45/0/ascent = 0.0
+cache/0/45/0/descent = 0.0
+cache/0/45/0/underline_position = 0.0
+cache/0/45/0/underline_thickness = 0.0
+cache/0/45/0/scale = 1.0
+
+[sub_resource type="FontFile" id="FontFile_qdyrm"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/45/0/ascent = 0.0
+cache/0/45/0/descent = 0.0
+cache/0/45/0/underline_position = 0.0
+cache/0/45/0/underline_thickness = 0.0
+cache/0/45/0/scale = 1.0
 
 [node name="UI Manager" type="CanvasLayer" node_paths=PackedStringArray("scoreNumberLabel")]
 script = ExtResource("1_rwj1f")
 scoreNumberLabel = NodePath("Score Label/Score Numerical Label")
 
 [node name="Score Label" type="Label" parent="."]
-offset_right = 52.0
-offset_bottom = 23.0
+offset_right = 132.0
+offset_bottom = 61.0
+theme_override_fonts/font = SubResource("FontFile_mdx1k")
+theme_override_font_sizes/font_size = 45
 text = "Score: "
 
 [node name="Score Numerical Label" type="Label" parent="Score Label"]
 layout_mode = 0
-offset_left = 52.0
+offset_left = 126.0
 offset_top = 1.0
-offset_right = 104.0
-offset_bottom = 24.0
+offset_right = 440.0
+offset_bottom = 62.0
+theme_override_fonts/font = SubResource("FontFile_qdyrm")
+theme_override_font_sizes/font_size = 45
 text = "0"
 
 [node name="Set Button" parent="." instance=ExtResource("2_iku3t")]

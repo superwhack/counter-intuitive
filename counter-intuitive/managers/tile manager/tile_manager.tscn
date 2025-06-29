@@ -36,7 +36,7 @@ mouse_filter = 2
 alignment = 1
 
 [node name="Deck" type="Node2D" parent="."]
-position = Vector2(0, 520)
+position = Vector2(640, 800)
 
 [node name="Discard" type="Node2D" parent="."]
-position = Vector2(193, 523)
+position = Vector2(640, 800)
