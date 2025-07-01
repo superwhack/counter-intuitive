@@ -35,6 +35,9 @@ var money : int
 var handSize : int
 
 var triggerArray : Array
+var triggerIndex : int
+
+var tilesLocked : bool
 
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
@@ -44,6 +47,11 @@ func _init() -> void:
 func _ready() -> void:
 	UpdateFromGlobals()
 	ResetRun()
+	
+	tilesLocked = false
+	# CONNECTING SIGNALS
+	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
+	SignalBus.PullNextTrigger.connect(PullNextTrigger)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,8 +65,11 @@ func StartRun():
 		
 func ResetRound():
 	board.ResetRound()
-
 	tileManager.ResetRound()
+	triggerArray.clear()
+	triggerIndex = 0
+	
+	tilesLocked = false
 
 
 func StartStage():
@@ -97,3 +108,24 @@ func UpdateFromGlobals():
 	uiManager = Globals.uiManager
 	board = Globals.board
 	tileManager = Globals.tileManager
+
+func PullNextTrigger():
+	if (triggerIndex == triggerArray.size()):
+		ResetRound()
+	else:
+		triggerArray[triggerIndex].call()
+		triggerIndex += 1
+	
+func StartTriggerSequence():
+	board.locked = true
+	tilesLocked = true
+	triggerIndex = 0
+	PullNextTrigger()
+	
+func RemoveCallableTriggerFromTile(tile : Tile):
+	RemoveCallableTriggerFromObject(tile)
+	
+func RemoveCallableTriggerFromObject(object : Node):
+	for callable in triggerArray:
+		if(callable.get_object() == object):
+			triggerArray.erase(callable)

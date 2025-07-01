@@ -13,7 +13,8 @@ enum TILE_LOCATIONS {
 	deck,
 	discard,
 	board,
-	none
+	none,
+	shop
 }
 
 enum STARTING_DECKS {

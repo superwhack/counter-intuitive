@@ -46,3 +46,13 @@ offset_bottom = 720.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 360)
+
+[node name="Visual Deck" type="HFlowContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Visual Discard" type="HFlowContainer" parent="."]
+
+[node name="Trinkets" type="HFlowContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

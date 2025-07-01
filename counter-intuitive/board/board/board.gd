@@ -5,6 +5,8 @@ var boardSlotSize : Vector2
 @export var spacing : Vector2
 @export var boardSlot : PackedScene
 
+var locked : bool
+
 var boardSlotsArray : Array
 var flatBoardSlotsArray : Array
 var boardTilesArray : Array
@@ -14,6 +16,8 @@ var flatBoardTilesArray : Array
 func _ready() -> void:
 	Globals.board = self
 	boardSlotSize = Reference.boardSlotSize
+	
+	locked = false
 	
 
 
@@ -36,7 +40,7 @@ func AddTileToBoard(tile : Tile, boardSlot : BoardSlot):
 	
 	AddTileToBoardArrays(tile)
 	
-	Globals.tileManager.triggerOrderArray.append(tile)
+	Globals.main.triggerArray.append(tile.CreateCallable()) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CALLABLES
 	
 func RemoveTileFromBoard(tile):
 	# reset the board slot's tile
@@ -45,7 +49,7 @@ func RemoveTileFromBoard(tile):
 	
 	# remove the tile from the arrays
 	RemoveTileFromBoardArrays(tile)
-	Globals.tileManager.triggerOrderArray.erase(tile)
+	Globals.main.RemoveCallableTriggerFromTile(tile)
 	
 	# reparent it to main
 	tile.reparent(Globals.main, true)
@@ -58,7 +62,7 @@ func DiscardTileFromBoard(tile):
 	
 func DiscardAllTilesFromBoard():
 	while (flatBoardTilesArray.size() > 0):
-		Globals.tileManager.AddTileToLocation(flatBoardTilesArray[0], Reference.TILE_LOCATIONS.discard)
+		DiscardTileFromBoard(flatBoardTilesArray[0])
 		
 func CreateBoardSlots():
 	var currentPos : Vector2 = (-2 * boardSlotSize) + (-2 * spacing)
@@ -100,6 +104,7 @@ func RemoveTileFromBoardArrays(tile : Tile):
 	flatBoardTilesArray.erase(tile)
 	
 func ResetRound():
+	locked = false
 	DiscardAllTilesFromBoard()
 	
 func ResetStage():

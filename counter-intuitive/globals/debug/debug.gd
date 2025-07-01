@@ -27,11 +27,11 @@ func _debug_print_arrays():
 	print("Hand: " + str(Globals.tileManager.handArray))
 	print("Board: " + str(Globals.board.boardTilesArray))
 	print("Flat Board: " + str(Globals.board.flatBoardTilesArray))
-	print("Trigger Array: " + str(Globals.tileManager.triggerOrderArray))
+	print("Trigger Array: " + str(Globals.main.triggerArray))
 
 
 func debug_create_tile():
-	Globals.tileManager.CreateTile(Globals.tileManager.tileBasic)
+	Globals.tileManager.CreatePlayTileToDeck(Globals.tileManager.tileBasic)
 	
 func debug_draw_tile():
 	Globals.tileManager.DrawTopTileFromDeck()

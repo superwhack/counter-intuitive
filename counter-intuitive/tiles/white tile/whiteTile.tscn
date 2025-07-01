@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://h70tx6tvu076"]
+[gd_scene load_steps=5 format=3 uid="uid://h70tx6tvu076"]
 
 [ext_resource type="Script" uid="uid://c4umhlqvtktku" path="res://tiles/white tile/white_tile.gd" id="1_yhqud"]
 [ext_resource type="Texture2D" uid="uid://dypjlcvm8e8f1" path="res://assets/white tile.png" id="2_0bkdf"]
+[ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_e3ofn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e5hq"]
 radius = 31.257
 
-[node name="White Tile" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="White Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel")]
 z_index = 1
 collision_mask = 0
 script = ExtResource("1_yhqud")
 sprite = NodePath("Sprite2D")
+tooltip = NodePath("Tile Tooltip")
+tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0bkdf")
@@ -20,5 +23,9 @@ visible = false
 scale = Vector2(1.04, 1.04)
 shape = SubResource("CircleShape2D_8e5hq")
 
+[node name="Tile Tooltip" parent="." instance=ExtResource("3_e3ofn")]
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="Tile Tooltip"]

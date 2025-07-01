@@ -16,9 +16,7 @@ var discardArray : Array
 @export var handSlot : PackedScene
 
 var allTiles : Array
-var triggerOrderArray : Array
 
-var currentOnBoardTileTriggerIndex : int
 var handSlots : Array
 var lastOpenIndex : int
 
@@ -27,11 +25,6 @@ var heldTile : Tile
 func _ready() -> void:
 	Globals.tileManager = self
 	main = Globals.main
-
-	
-	# CONNECTING SIGNALS
-	SignalBus.PlayButtonPressed.connect(_on_play_button_pressed)
-	SignalBus.PullNextTileOnBoardTrigger.connect(TriggerNextTileOnBoard)
 
 #region Hand Management
 func CreateNewHandSlot() -> Node:
@@ -61,9 +54,12 @@ func ShiftTilesLeftInHandFromTile(tile : Node2D):
 
 #region Deck Management
 func DrawTopTileFromDeck():
-	if (handArray.size() != handSlots.size()):
+	# Draw if the hand isn't full
+	if (handArray.size() < main.handSize):
+		# If the deck is empty try to shuffle new tiles in
 		if (deckArray.size() == 0):
 			ShuffleDiscardIntoDeck()
+		# Then try to draw, as long as there's tiles
 		if (deckArray.size() > 0):
 			AddTileToLocation(deckArray.pop_front(), Reference.TILE_LOCATIONS.hand)
 		
@@ -114,27 +110,31 @@ func RemoveTileFromManagerArrays(tile : Tile):
 			Globals.board.RemoveTileFromBoard(tile)
 #endregion
 
-
-# connected to PullNextTileOnBoardTrigger signal
-func TriggerNextTileOnBoard():
-	if (currentOnBoardTileTriggerIndex == triggerOrderArray.size()):
-		Globals.board.DiscardAllTilesFromBoard()
-		print("All done triggering boss")
-	else:
-		triggerOrderArray[currentOnBoardTileTriggerIndex].OnBoardTrigger()
-		currentOnBoardTileTriggerIndex += 1
-
-# connected to Set Button signal
-func _on_play_button_pressed():
-	print("set button pressed")
-	currentOnBoardTileTriggerIndex = 0
-	TriggerNextTileOnBoard()
 	
-	
-func CreateTile(tileScene : PackedScene):
+func CreateTile(tileScene : PackedScene) -> Tile:
 	var newTile = tileScene.instantiate()
 	add_child(newTile)
+	
+	newTile.tileManager = self
+	newTile.main = Globals.main
+	newTile.desiredPosition = newTile.position
+	
+	return newTile
+	
+func CreatePlayTile(tileScene : PackedScene) -> Tile:
+	var newTile = CreateTile(tileScene)
+	
+	allTiles.append(newTile)
+	
+	return newTile
 
+func CreatePlayTileToDeck(tileScene : PackedScene):
+	
+	AddTileToLocation(CreatePlayTile(tileScene), Reference.TILE_LOCATIONS.deck)
+
+func CreateVisualTile(tileScene : PackedScene):
+	pass
+	
 func ShuffleDiscardIntoDeck():
 	while(discardArray.size() > 0):
 		AddTileToLocation(discardArray[0], Reference.TILE_LOCATIONS.deck)
@@ -149,11 +149,10 @@ func ShuffleAllIntoDeck():
 	deckArray.shuffle()
 	
 func DrawHand():
-	while (lastOpenIndex < handSlots.size()):
+	for i in (main.handSize - handArray.size()):
 		DrawTopTileFromDeck()
 
 func CreateHand():
-	print("create hand")
 	for i in main.handSize:
 		CreateNewHandSlot()
 	lastOpenIndex = 0;
@@ -166,6 +165,7 @@ func ResetRound():
 	
 func ResetStage():
 	ShuffleAllIntoDeck()
+	DrawHand()
 
 func ResetRun():
 	for tile in allTiles:
@@ -181,7 +181,8 @@ func ResetRun():
 	handArray.clear()
 	deckArray.clear()
 	discardArray.clear()
-	triggerOrderArray.clear()
-	
+
+func _process(delta: float) -> void:
+	pass
 
 	
