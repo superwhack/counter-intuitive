@@ -29,19 +29,24 @@ func ClearAllTilesFromBoard():
 		RemoveTileFromBoard(flatBoardTilesArray[0])
 		
 func AddTileToBoard(tile : Tile, boardSlot : BoardSlot):
-	tile.reparent(boardSlot, true)
-	tile.desiredPosition = Vector2.ZERO
-	
-	Globals.tileManager.RemoveTileFromManagerArrays(tile)
-	
-	tile.location = Reference.TILE_LOCATIONS.board
-	
-	boardSlot.tile = tile
-	
-	AddTileToBoardArrays(tile)
-	
-	Globals.main.triggerArray.append(tile.CreateCallable()) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CALLABLES
-	
+	if (Globals.main.tilesRemaining > 0):
+		tile.reparent(boardSlot, true)
+		tile.desiredPosition = Vector2.ZERO
+		
+		Globals.tileManager.RemoveTileFromManagerArrays(tile)
+		
+		tile.location = Reference.TILE_LOCATIONS.board
+		
+		boardSlot.tile = tile
+		
+		AddTileToBoardArrays(tile)
+		
+		Globals.main.triggerArray.append(tile.CreateCallable()) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CALLABLES
+		
+		Globals.main.tilesRemaining -= 1
+	else:
+		Globals.tileManager.AddTileToLocation(tile, Reference.TILE_LOCATIONS.hand)
+		
 func RemoveTileFromBoard(tile):
 	# reset the board slot's tile
 	var boardSlot = tile.get_parent()
@@ -56,6 +61,8 @@ func RemoveTileFromBoard(tile):
 	
 	# set its location
 	tile.location = Reference.TILE_LOCATIONS.none
+	
+	Globals.main.tilesRemaining += 1
 	
 func DiscardTileFromBoard(tile):
 	Globals.tileManager.AddTileToLocation(tile, Reference.TILE_LOCATIONS.discard)

@@ -125,12 +125,13 @@ func CreatePlayTile(tileScene : PackedScene) -> Tile:
 	var newTile = CreateTile(tileScene)
 	
 	allTiles.append(newTile)
-	
+
 	return newTile
 
 func CreatePlayTileToDeck(tileScene : PackedScene):
-	
-	AddTileToLocation(CreatePlayTile(tileScene), Reference.TILE_LOCATIONS.deck)
+	var newTile = CreatePlayTile(tileScene)
+	AddTileToLocation(newTile, Reference.TILE_LOCATIONS.deck)
+	newTile.position = Vector2(0, 0)
 
 func CreateVisualTile(tileScene : PackedScene):
 	pass
@@ -158,14 +159,17 @@ func CreateHand():
 	lastOpenIndex = 0;
 	
 
+func StartRound():
+	DrawHand()
+	
 func ResetRound():
 	for tile in allTiles:
 		tile.ResetRound()
-	DrawHand()
 	
 func ResetStage():
 	ShuffleAllIntoDeck()
-	DrawHand()
+	for tile in allTiles:
+		tile.ResetStage()
 
 func ResetRun():
 	for tile in allTiles:

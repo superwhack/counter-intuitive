@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8av6svstjroi"]
+[gd_scene load_steps=4 format=3 uid="uid://c8av6svstjroi"]
 
 [ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
+[ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_vhla3"]
+[ext_resource type="PackedScene" uid="uid://uh4850tr5ceg" path="res://tiles/black tile/blackTile.tscn" id="3_xv4tl"]
 
 [node name="Reference" type="Node2D"]
 script = ExtResource("1_rdp6k")
+WhiteTile = ExtResource("2_vhla3")
+BlackTile = ExtResource("3_xv4tl")

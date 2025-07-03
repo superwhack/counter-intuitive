@@ -5,11 +5,34 @@ var uiManager : UIManager
 var board : Board
 var tileManager : TileManager
 
+@export var gameplayScreen : Node2D
+@export var mainMenuScreen : Node2D
+@export var pauseScreen : Node2D
+@export var shopScreen : Node2D
 
-var tilesRemaining : int
+var screenArray : Array
+
+@export var background : Node
+
+@export var startRunButton : Node
+
+var selectedStartingDeck
+
+var currentScreen
+
+var tilesRemaining : int:
+	set(value): 
+		tilesRemaining = value
+		uiManager.UpdateTiles()
+		
 var maxTilesPerRound : int
 
-var roundsRemaining : int
+var roundsRemaining : int:
+	set(value): 
+		roundsRemaining = value
+		uiManager.UpdateRounds()
+		
+
 var maxRounds : int
 
 var discardsRemaining : int
@@ -24,20 +47,25 @@ var score : int:
 		uiManager.UpdateScore()
 
 var currentStage : int
-var currentScoreRequirement : int
-	
-var money : int
-	#set(value):
-		#score = value
-		#uiManager.UpdateMoney()
-		
 
+var goal : int:
+	set(value): 
+		goal = value
+		uiManager.UpdateGoal()
+
+var tokens : int:
+	set(value): 
+		tokens = value
+		uiManager.UpdateTokens()
+		
 var handSize : int
 
 var triggerArray : Array
 var triggerIndex : int
 
 var tilesLocked : bool
+
+@export var gameOverNodeTemp : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
@@ -49,19 +77,36 @@ func _ready() -> void:
 	ResetRun()
 	
 	tilesLocked = false
+	
+	screenArray = [gameplayScreen, pauseScreen, mainMenuScreen]
+	
+	HideAllScreens()
+	ShowScreen(mainMenuScreen)
+	
+	# TEMPORARY!
+	selectedStartingDeck = Reference.STARTING_DECKS.TestDeck
 	# CONNECTING SIGNALS
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
 	SignalBus.PullNextTrigger.connect(PullNextTrigger)
 	
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_cancel")):
-		get_tree().quit()
+		if (currentScreen == gameplayScreen):
+			ShowScreen(mainMenuScreen)
+		elif (currentScreen == mainMenuScreen):
+			get_tree().quit()
+	currentScreen.modulate = lerp(currentScreen.modulate, Color(1, 1, 1, 1,), delta * 3)
 
-
+# Connected to Start Button
 func StartRun():
+	UpdateFromGlobals()
 	ResetRun()
+	CreateStartingDeck()
+	ShowScreen(gameplayScreen)
+	
+	StartRound()
+	
 		
 func ResetRound():
 	board.ResetRound()
@@ -70,10 +115,31 @@ func ResetRound():
 	triggerIndex = 0
 	
 	tilesLocked = false
-
+	
+	tilesRemaining = maxTilesPerRound
+	
+	if (roundsRemaining == 0):
+		if (score > goal):
+			# Gain Money
+			tokens += (int)(10 * (score - goal) / goal)
+			ResetStage()
+			StartStage()
+		else:
+			gameOverNodeTemp.visible = true
+			get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
+			get_tree().create_timer(2).timeout.connect(func():ShowScreen(mainMenuScreen))
+			
+func StartRound():
+	tileManager.StartRound()
 
 func StartStage():
+	goal *= 1.4
+	goal = (int)(goal)
+	currentStage += 1
+	
 	ResetStage()
+
+	
 	
 	
 func ResetStage():
@@ -82,7 +148,7 @@ func ResetStage():
 	tileManager.ResetStage()
 
 	score = 0
-	tilesRemaining = maxTilesPerRound
+	
 	
 	roundsRemaining = maxRounds
 	
@@ -96,12 +162,17 @@ func ResetRun():
 	maxTilesPerRound = 4
 	tilesRemaining = maxTilesPerRound
 	
-	money = 0
+	tokens = 0
 	
 	handSize = 8
 	
+	goal = 30
+	
 	tileManager.ResetRun()
 	board.ResetRun()
+	
+	# TEMP!
+	gameOverNodeTemp.visible = false
 	
 	
 func UpdateFromGlobals():
@@ -112,14 +183,18 @@ func UpdateFromGlobals():
 func PullNextTrigger():
 	if (triggerIndex == triggerArray.size()):
 		ResetRound()
+		StartRound()
 	else:
 		triggerArray[triggerIndex].call()
 		triggerIndex += 1
 	
 func StartTriggerSequence():
+	roundsRemaining -= 1
+		
 	board.locked = true
 	tilesLocked = true
 	triggerIndex = 0
+
 	PullNextTrigger()
 	
 func RemoveCallableTriggerFromTile(tile : Tile):
@@ -129,3 +204,32 @@ func RemoveCallableTriggerFromObject(object : Node):
 	for callable in triggerArray:
 		if(callable.get_object() == object):
 			triggerArray.erase(callable)
+			
+func ShowScreen(screen):
+	HideAllScreens()
+	screen.visible = true
+	currentScreen = screen
+	match screen:
+		gameplayScreen:
+			background.ZoomTo(1)
+		mainMenuScreen: 
+			background.ZoomTo(3)
+		pauseScreen:
+			background.ZoomTo(5)
+			
+func HideAllScreens():
+	for screen in screenArray:
+		screen.visible = false
+		print(screen.modulate)
+		
+func CreateStartingDeck():
+	match selectedStartingDeck:
+		Reference.STARTING_DECKS.WhiteDeck:
+			for i in 20:
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
+		Reference.STARTING_DECKS.TestDeck:
+			for i in 10:
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes["BlackTile"])
+
+func GameOver():
+	ShowScreen(mainMenuScreen)

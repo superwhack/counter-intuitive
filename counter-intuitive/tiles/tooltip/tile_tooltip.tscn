@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bao7bmapxhte2" path="res://assets/pixel.png" id="1_bohve"]
 
 [sub_resource type="FontFile" id="FontFile_bohve"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0

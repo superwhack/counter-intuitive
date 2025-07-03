@@ -27,7 +27,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	
-	description = "DESCRIPTION MISSING!"
+	UpdateTooltipLabel()
 	
 	HideTooltip()
 	#tileManager = Globals.tileManager
@@ -94,8 +94,6 @@ func OnPickup():
 			tileManager.AddTileToLocation(self, Reference.TILE_LOCATIONS.none)
 			
 		Reference.TILE_LOCATIONS.board:
-			#if (!Globals.board.locked):
-				print(Globals.board.locked)
 				Globals.board.RemoveTileFromBoard(self)
 
 		
@@ -153,10 +151,12 @@ func OnBoardTrigger():
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	
 func ShowTooltip():
-	print("show")
+	UpdateTooltipLabel()
 	tooltip.visible = true
-	tooltipLabel.text = description
 	
 func HideTooltip():
 	tooltip.visible = false
 	
+func UpdateTooltipLabel():
+	description = "DESCRIPTION MISSING!"
+	tooltipLabel.text = description

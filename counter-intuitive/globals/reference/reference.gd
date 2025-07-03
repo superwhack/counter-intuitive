@@ -1,6 +1,6 @@
 extends Node2D
-
-@export var whiteTile : PackedScene
+@export var WhiteTile : PackedScene
+@export var BlackTile : PackedScene
 
 enum COLLISION_LAYERS {
 	Tiles,
@@ -18,12 +18,13 @@ enum TILE_LOCATIONS {
 }
 
 enum STARTING_DECKS {
-	WhiteDeck
+	WhiteDeck,
+	TestDeck
 }
 
 var TileScenes : Dictionary = {
-	"WhiteTile" : whiteTile
-	
+	"WhiteTile" : WhiteTile,
+	"BlackTile" : BlackTile
 }
 
 
@@ -34,6 +35,10 @@ var boardSlotSize : Vector2
 func _ready() -> void:
 	boardSlotSize = Vector2(64, 64)
 	handSlotSize = Vector2(64, 64)
+	
+	# Fill Dictionary
+	TileScenes["WhiteTile"] = WhiteTile
+	TileScenes["BlackTile"] = BlackTile
 	pass # Replace with function body.
 
 
