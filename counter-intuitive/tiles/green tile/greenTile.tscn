@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcl75hyntt54v"]
+
+[ext_resource type="Script" uid="uid://bld2wj3hceqoy" path="res://tiles/green tile/green_tile.gd" id="1_qjgo1"]
+[ext_resource type="Texture2D" uid="uid://cw7mrakac8ukp" path="res://tiles/green tile/green tile.png" id="2_qjgo1"]
+[ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_6jc06"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8e5hq"]
+radius = 31.257
+
+[node name="Green Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel")]
+z_index = 1
+collision_mask = 0
+script = ExtResource("1_qjgo1")
+sprite = NodePath("Sprite2D")
+tooltip = NodePath("Tile Tooltip")
+tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qjgo1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(1.04, 1.04)
+shape = SubResource("CircleShape2D_8e5hq")
+
+[node name="Tile Tooltip" parent="." instance=ExtResource("3_6jc06")]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="Tile Tooltip"]

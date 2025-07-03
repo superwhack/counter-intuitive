@@ -229,7 +229,8 @@ func CreateStartingDeck():
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 10:
-				tileManager.CreatePlayTileToDeck(Reference.TileScenes["BlackTile"])
+				tokens += 10
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes["GreenTile"])
 
 func GameOver():
 	ShowScreen(mainMenuScreen)

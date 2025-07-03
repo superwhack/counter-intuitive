@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://uh4850tr5ceg"]
 
 [ext_resource type="Script" uid="uid://dhorliil6jm8u" path="res://tiles/black tile/black_tile.gd" id="1_1xgrj"]
-[ext_resource type="Texture2D" uid="uid://b1cwi5rfjpn3n" path="res://assets/black tile.png" id="2_1xgrj"]
+[ext_resource type="Texture2D" uid="uid://b1cwi5rfjpn3n" path="res://tiles/black tile/black tile.png" id="2_1xgrj"]
 [ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_ex6c3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e5hq"]
