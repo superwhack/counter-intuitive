@@ -3,7 +3,7 @@ extends Node2D
 signal PlayButtonPressed
 signal PullNextTrigger
 signal Score(source, value)
-signal TileMoved(tile, source)
+signal TileMoved(tile, source, direction)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

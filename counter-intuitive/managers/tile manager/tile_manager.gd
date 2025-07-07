@@ -189,6 +189,8 @@ func ResetRun():
 func _process(delta: float) -> void:
 	pass
 
-func MoveTile(tile : Tile, direction : Reference.MOVE_DIRECTIONS):
-	pass
+func MoveTile(tile : Tile, direction : Reference.DIRECTIONS):
+	var newSlot = Globals.board.GetNeighboringSlotFromTile(tile, direction)
+	if (newSlot != null):
+		pass
 	

@@ -25,7 +25,7 @@ enum STARTING_DECKS {
 	TestDeck
 }
 
-enum MOVE_DIRECTIONS {
+enum DIRECTIONS {
 	north,
 	south,
 	east,
@@ -36,8 +36,10 @@ enum MOVE_DIRECTIONS {
 	southwest
 }
 
-var Cardinals = [MOVE_DIRECTIONS.north, MOVE_DIRECTIONS.south, MOVE_DIRECTIONS.east, MOVE_DIRECTIONS.west]
-var Ordinals = [MOVE_DIRECTIONS.northeast, MOVE_DIRECTIONS.southeast, MOVE_DIRECTIONS.northwest, MOVE_DIRECTIONS.southwest]
+var Cardinals = [DIRECTIONS.north, DIRECTIONS.south, DIRECTIONS.east, DIRECTIONS.west]
+var Ordinals = [DIRECTIONS.northeast, DIRECTIONS.southeast, DIRECTIONS.northwest, DIRECTIONS.southwest]
+var Directions = Cardinals + Ordinals
+
 var TileScenes : Dictionary = {
 	"WhiteTile" : WhiteTile,
 	"BlackTile" : BlackTile,

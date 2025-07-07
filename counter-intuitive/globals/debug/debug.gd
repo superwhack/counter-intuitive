@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 		debug_reset_stage()
 	if (Input.is_action_just_pressed("debug_reset_run")):
 		debug_reset_run()
+	if (Input.is_action_just_pressed("debug_generic")):
+		debug_generic()
 #region Debug
 func _debug_print_arrays():
 	print("Deck: " + str(Globals.tileManager.deckArray))
@@ -48,3 +50,7 @@ func debug_reset_stage():
 func debug_reset_run():
 	Globals.main.ResetRun()
 #endregion
+
+func debug_generic():
+	for i in 8:
+		print(Globals.board.GetNeighboringSlot(Globals.board.boardSlotsArray[1][1], i))

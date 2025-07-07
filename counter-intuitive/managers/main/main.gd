@@ -196,7 +196,10 @@ func StartTriggerSequence():
 	board.locked = true
 	tilesLocked = true
 	triggerIndex = 0
-
+	
+	for tile in board.flatBoardTilesArray:
+		triggerArray.append(tile.CreateCallable())
+	
 	PullNextTrigger()
 	
 func RemoveCallableTriggerFromTile(tile : Tile):

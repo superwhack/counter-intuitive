@@ -44,7 +44,6 @@ func AddTileToBoard(tile : Tile, boardSlot : BoardSlot):
 		
 		AddTileToBoardArrays(tile)
 		
-		Globals.main.triggerArray.append(tile.CreateCallable()) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CALLABLES
 		
 		Globals.main.tilesRemaining -= 1
 	else:
@@ -57,7 +56,6 @@ func RemoveTileFromBoard(tile):
 	
 	# remove the tile from the arrays
 	RemoveTileFromBoardArrays(tile)
-	Globals.main.RemoveCallableTriggerFromTile(tile)
 	
 	# reparent it to main
 	tile.reparent(Globals.main, true)
@@ -76,7 +74,7 @@ func DiscardAllTilesFromBoard():
 		
 func CreateBoardSlots():
 	# start in the top left
-	var currentPos : Vector2 = (-1.5 * boardSlotSize) + (-1.5 * spacing)
+	var currentPos : Vector2 = ((numRows - 1) * -0.5 * boardSlotSize) + ((numRows - 1) * -0.5 * spacing)
 	for r in numRows:
 		boardSlotsArray.append([])
 		for c in numColumns:
@@ -135,3 +133,68 @@ func ResetRun():
 	flatBoardTilesArray.clear()
 	
 	CreateTileArrays()
+	
+func GetSlotIndices(boardSlot : BoardSlot):
+	for r in numRows:
+		for c in numColumns:
+			if (boardSlotsArray[r][c] == boardSlot):
+				return Vector2(r, c)
+	return null
+	
+func GetNeighboringSlot(boardSlot : BoardSlot, direction : Reference.DIRECTIONS):
+	var indices = GetSlotIndices(boardSlot)
+
+	match direction:
+		Reference.DIRECTIONS.south:
+			if (indices.x < numRows - 1):
+				return boardSlotsArray[indices.x + 1][indices.y]
+			else:
+				return null
+		Reference.DIRECTIONS.north:
+			if (indices.x > 0):
+				return boardSlotsArray[indices.x - 1][indices.y]
+			else:
+				return null
+		Reference.DIRECTIONS.east:
+			if (indices.y < numColumns - 1):
+				return boardSlotsArray[indices.x][indices.y + 1]
+			else:
+				return null
+		Reference.DIRECTIONS.west:
+			if (indices.y > 0):
+				return boardSlotsArray[indices.x][indices.y - 1]
+			else:
+				return null
+		Reference.DIRECTIONS.southeast:
+			if (indices.x < numRows - 1 && indices.y < numColumns - 1):
+				return boardSlotsArray[indices.x + 1][indices.y + 1]
+			else:
+				return null
+		Reference.DIRECTIONS.northeast:
+			if (indices.x > 0 && indices.y < numColumns - 1):
+				return boardSlotsArray[indices.x - 1][indices.y + 1]
+			else:
+				return null
+		Reference.DIRECTIONS.northwest:
+			if (indices.x > 0 && indices.y > 0):
+				return boardSlotsArray[indices.x - 1][indices.y - 1]
+			else:
+				return null
+		Reference.DIRECTIONS.southwest:
+			if (indices.x < numRows - 1 && indices.y > 0):
+				return boardSlotsArray[indices.x + 1][indices.y - 1]
+			else:
+				return null
+	
+func GetNeighboringSlotFromTile(tile : Tile, direction : Reference.DIRECTIONS):
+	if (tile.get_parent() is BoardSlot):
+		return GetNeighboringSlot(tile.get_parent(), direction)
+	else:
+		return null
+		
+func ChangeSlot(tile : Tile, boardSlot : BoardSlot):
+	var currentSlot = tile.get_parent()
+	if (currentSlot is BoardSlot):
+		# take most of the code from Remove tile
+		#then do most of the code from add tile
+		
