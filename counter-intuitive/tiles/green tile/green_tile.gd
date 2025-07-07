@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
-	main.score += min(main.tokens, 20)
+	SignalBus.Score.emit(self, min(main.tokens, 20))
 	modulate = Color(0.6, 0.6, 0.6)
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())

@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8av6svstjroi"]
+[gd_scene load_steps=7 format=3 uid="uid://c8av6svstjroi"]
 
 [ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
 [ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_vhla3"]
 [ext_resource type="PackedScene" uid="uid://uh4850tr5ceg" path="res://tiles/black tile/blackTile.tscn" id="3_xv4tl"]
 [ext_resource type="PackedScene" uid="uid://bcl75hyntt54v" path="res://tiles/green tile/greenTile.tscn" id="4_quk24"]
+[ext_resource type="PackedScene" uid="uid://b1kppabgv2td1" path="res://grayTile.tscn" id="5_kui48"]
+[ext_resource type="PackedScene" uid="uid://d2a8a86omc58d" path="res://tiles/white tile/orangeTile.tscn" id="6_tckha"]
 
 [node name="Reference" type="Node2D"]
 script = ExtResource("1_rdp6k")
 WhiteTile = ExtResource("2_vhla3")
 BlackTile = ExtResource("3_xv4tl")
 GreenTile = ExtResource("4_quk24")
+GrayTile = ExtResource("5_kui48")
+OrangeTile = ExtResource("6_tckha")

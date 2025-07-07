@@ -189,4 +189,6 @@ func ResetRun():
 func _process(delta: float) -> void:
 	pass
 
+func MoveTile(tile : Tile, direction : Reference.MOVE_DIRECTIONS):
+	pass
 	

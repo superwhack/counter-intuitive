@@ -7,7 +7,7 @@ func _init() -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	score = 1
+	score = 3
 	super()
 
 	
@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 func Trigger():
 	SignalBus.Score.emit(self, score)
-	score += 1
+	score += 3
 	modulate = Color(0.6, 0.6, 0.6)
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
@@ -33,6 +33,7 @@ func ResetRound():
 	pass
 	
 func ResetStage():
+	score = 3
 	pass
 
 func CreateCallable() -> Callable:
@@ -41,5 +42,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Black Tile\nScore " + str(score) + " point(s). Then, increase that amount by 1 permanently."
+	description = "Gray Tile\nScore " + str(score) + " point(s). Then, increase that amount by 3 for this stage."
 	tooltipLabel.text = description

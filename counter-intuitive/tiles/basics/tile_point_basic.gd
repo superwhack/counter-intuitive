@@ -14,6 +14,6 @@ func _process(delta: float) -> void:
 
 
 func OnBoardTrigger():
-	main.score += 5
+	SignalBus.Score.emit(self, 5)
 	modulate = Color(255, 0, 0)
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())

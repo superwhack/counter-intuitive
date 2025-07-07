@@ -1,16 +1,12 @@
 extends Tile
-
-var score : int
-
+class_name OrangeTileClass
 func _init() -> void:
 	pass
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	score = 1
 	super()
 
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -18,10 +14,14 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
-	SignalBus.Score.emit(self, score)
-	score += 1
+	var trigger = main.GetLastTileTrigger()
+	if (trigger != null && trigger.get_object() is not OrangeTileClass):
+		trigger.call()
+	else:
+		print("I failed :(")
+		get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
+
 	modulate = Color(0.6, 0.6, 0.6)
-	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
 
 
@@ -41,5 +41,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Black Tile\nScore " + str(score) + " point(s). Then, increase that amount by 1 permanently."
+	description = "Orange Tile\nRetrigger the last tile that Triggered.."
 	tooltipLabel.text = description

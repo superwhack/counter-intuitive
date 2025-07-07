@@ -42,7 +42,7 @@ var numTrinkets : int
 var maxTrinkets : int
 
 var score : int:
-	set(value): 
+	set(value):
 		score = value
 		uiManager.UpdateScore()
 
@@ -85,9 +85,11 @@ func _ready() -> void:
 	
 	# TEMPORARY!
 	selectedStartingDeck = Reference.STARTING_DECKS.TestDeck
+	
 	# CONNECTING SIGNALS
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
 	SignalBus.PullNextTrigger.connect(PullNextTrigger)
+	SignalBus.Score.connect(OnScoreSignal)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -230,7 +232,25 @@ func CreateStartingDeck():
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 10:
 				tokens += 10
-				tileManager.CreatePlayTileToDeck(Reference.TileScenes["GreenTile"])
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 
 func GameOver():
 	ShowScreen(mainMenuScreen)
+
+func GetLastTileTrigger():
+	var tempIndex : int = triggerIndex
+	tempIndex -= 1
+	var found = false
+	var callable = null
+	while (!found):
+		if (tempIndex == -1):
+			return null
+		callable = triggerArray[tempIndex]
+		print(callable)
+		found = (callable.get_object() is Tile)
+		tempIndex -= 1
+
+	return callable
+	
+func OnScoreSignal(source, value): 
+	score += value

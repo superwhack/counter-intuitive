@@ -1,28 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://uh4850tr5ceg"]
+[gd_scene load_steps=5 format=3 uid="uid://b1kppabgv2td1"]
 
-[ext_resource type="Script" uid="uid://dhorliil6jm8u" path="res://tiles/black tile/black_tile.gd" id="1_1xgrj"]
-[ext_resource type="Texture2D" uid="uid://b1cwi5rfjpn3n" path="res://tiles/black tile/black tile.png" id="2_1xgrj"]
-[ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_ex6c3"]
+[ext_resource type="Script" uid="uid://6jn80vac3su3" path="res://gray_tile.gd" id="1_x6ri5"]
+[ext_resource type="Texture2D" uid="uid://bupr7d1tquv4g" path="res://assets/gray tile.png" id="2_x6ri5"]
+[ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_8rb1e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e5hq"]
 radius = 31.257
 
-[node name="Black Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel")]
+[node name="Gray Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel")]
 z_index = 1
 collision_mask = 0
-script = ExtResource("1_1xgrj")
+script = ExtResource("1_x6ri5")
 sprite = NodePath("Sprite2D")
 tooltip = NodePath("Tile Tooltip")
 tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_1xgrj")
+texture = ExtResource("2_x6ri5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.04, 1.04)
 shape = SubResource("CircleShape2D_8e5hq")
 
-[node name="Tile Tooltip" parent="." instance=ExtResource("3_ex6c3")]
+[node name="Tile Tooltip" parent="." instance=ExtResource("3_8rb1e")]
 
 [node name="Tooltip Text" parent="Tile Tooltip" index="1"]
 metadata/_edit_use_anchors_ = true

@@ -12,6 +12,9 @@ var flatBoardSlotsArray : Array
 var boardTilesArray : Array
 var flatBoardTilesArray : Array
 
+var numRows : int = 4
+var numColumns : int = 4
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Globals.board = self
@@ -72,10 +75,11 @@ func DiscardAllTilesFromBoard():
 		DiscardTileFromBoard(flatBoardTilesArray[0])
 		
 func CreateBoardSlots():
-	var currentPos : Vector2 = (-2 * boardSlotSize) + (-2 * spacing)
-	for r in 5:
+	# start in the top left
+	var currentPos : Vector2 = (-1.5 * boardSlotSize) + (-1.5 * spacing)
+	for r in numRows:
 		boardSlotsArray.append([])
-		for c in 5:
+		for c in numColumns:
 			var newSlot = boardSlot.instantiate()
 			add_child(newSlot)
 			newSlot.name = (str(r) + " : " + str(c))
@@ -84,27 +88,27 @@ func CreateBoardSlots():
 			flatBoardSlotsArray.append(newSlot)
 			
 			currentPos.x += spacing.x + boardSlotSize.x
-		currentPos.x -= 5 * (spacing.x + boardSlotSize.x)
+		currentPos.x -= numRows * (spacing.x + boardSlotSize.x)
 		currentPos.y += spacing.y + boardSlotSize.y
 		
 func CreateTileArrays():
 	flatBoardTilesArray = []
 	boardTilesArray = []
 	
-	for r in 5:
+	for r in numRows:
 		boardTilesArray.append([])
-		for c in 5:
+		for c in numColumns:
 			boardTilesArray[r].append(null)
 			
 func AddTileToBoardArrays(tile : Tile):
-	for r in 5:
-		for c in 5:
+	for r in numRows:
+		for c in numColumns:
 			if (boardSlotsArray[r][c].get_children().has(tile)):
 				boardTilesArray[r][c] = tile
 	flatBoardTilesArray.append(tile)
 	
 func RemoveTileFromBoardArrays(tile : Tile):
-	for r in 5:
+	for r in numRows:
 		var found = boardTilesArray[r].find(tile)
 		if (found != -1):
 			boardTilesArray[r][found] = null
