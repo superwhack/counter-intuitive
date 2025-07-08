@@ -1,5 +1,5 @@
 extends Tile
-class_name OrangeTileClass
+
 func _init() -> void:
 	pass
 	
@@ -7,6 +7,7 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -14,14 +15,9 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
-	var trigger = main.GetLastTileTrigger()
-	if (trigger != null && trigger.get_object() is not OrangeTileClass):
-		trigger.call()
-	else:
-		print("I failed :(")
-		get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
-
+	SignalBus.Score.emit(self, tileManager.deckArray.size())
 	modulate = Color(0.6, 0.6, 0.6)
+	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
 
 
@@ -41,5 +37,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Orange Tile\nRetrigger the last tile that Triggered."
+	description = "Blue Tile\nScore points equal to the number of Tiles currently in your deck."
 	tooltipLabel.text = description

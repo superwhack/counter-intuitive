@@ -4,7 +4,11 @@ extends Node2D
 @export var GreenTile : PackedScene
 @export var GrayTile : PackedScene
 @export var OrangeTile : PackedScene
-
+@export var YellowTile : PackedScene
+@export var PinkTile : PackedScene
+@export var RedTile : PackedScene
+@export var PurpleTile : PackedScene
+@export var BlueTile : PackedScene
 enum COLLISION_LAYERS {
 	Tiles,
 	BoardSpaces
@@ -45,7 +49,12 @@ var TileScenes : Dictionary = {
 	"BlackTile" : BlackTile,
 	"GreenTile" : GreenTile,
 	"GrayTile" : GrayTile,
-	"OrangeTile" : OrangeTile
+	"OrangeTile" : OrangeTile,
+	"YellowTile" : YellowTile,
+	"PinkTile" : PinkTile,
+	"RedTile" : RedTile,
+	"PurpleTile" : PurpleTile,
+	"BlueTile" : BlueTile
 }
 
 
@@ -63,6 +72,11 @@ func _ready() -> void:
 	TileScenes["GreenTile"] = GreenTile
 	TileScenes["GrayTile"] = GrayTile
 	TileScenes["OrangeTile"] = OrangeTile
+	TileScenes["YellowTile"] = YellowTile
+	TileScenes["PinkTile"] = PinkTile
+	TileScenes["RedTile"] = RedTile
+	TileScenes["PurpleTile"] = PurpleTile
+	TileScenes["BlueTile"] = BlueTile
 	pass # Replace with function body.
 
 

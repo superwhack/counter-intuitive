@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8av6svstjroi"]
+[gd_scene load_steps=12 format=3 uid="uid://c8av6svstjroi"]
 
 [ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
 [ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_vhla3"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bcl75hyntt54v" path="res://tiles/green tile/greenTile.tscn" id="4_quk24"]
 [ext_resource type="PackedScene" uid="uid://b1kppabgv2td1" path="res://grayTile.tscn" id="5_kui48"]
 [ext_resource type="PackedScene" uid="uid://d2a8a86omc58d" path="res://tiles/white tile/orangeTile.tscn" id="6_tckha"]
+[ext_resource type="PackedScene" uid="uid://sn6ovkvjg5cj" path="res://tiles/white tile/yellowTile.tscn" id="7_vd1s5"]
+[ext_resource type="PackedScene" uid="uid://2xk68b8t0v6h" path="res://tiles/white tile/pinkTile.tscn" id="8_0op2d"]
+[ext_resource type="PackedScene" uid="uid://bry6igdvbhwry" path="res://tiles/white tile/redTile.tscn" id="9_iealt"]
+[ext_resource type="PackedScene" uid="uid://6nfe3v7uk2xx" path="res://tiles/white tile/purpleTile.tscn" id="9_vitdi"]
+[ext_resource type="PackedScene" uid="uid://bmq4t3b8u10w0" path="res://tiles/green tile/blueTile.tscn" id="10_cks7i"]
 
 [node name="Reference" type="Node2D"]
 script = ExtResource("1_rdp6k")
@@ -14,3 +19,8 @@ BlackTile = ExtResource("3_xv4tl")
 GreenTile = ExtResource("4_quk24")
 GrayTile = ExtResource("5_kui48")
 OrangeTile = ExtResource("6_tckha")
+YellowTile = ExtResource("7_vd1s5")
+PinkTile = ExtResource("8_0op2d")
+RedTile = ExtResource("9_iealt")
+PurpleTile = ExtResource("9_vitdi")
+BlueTile = ExtResource("10_cks7i")

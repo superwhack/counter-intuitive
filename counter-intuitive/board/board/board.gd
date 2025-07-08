@@ -194,7 +194,7 @@ func GetNeighboringSlotFromTile(tile : Tile, direction : Reference.DIRECTIONS):
 		
 func ChangeSlot(tile : Tile, boardSlot : BoardSlot):
 	var currentSlot = tile.get_parent()
-	if (currentSlot is BoardSlot):
+	if (currentSlot is BoardSlot && boardSlot.tile == null):
 		# reset the board slot's tile
 		currentSlot.tile = null
 		
@@ -208,8 +208,9 @@ func ChangeSlot(tile : Tile, boardSlot : BoardSlot):
 		boardSlot.tile = tile
 		
 		AddTileToBoardArrays(tile)
-		
+		return true
 	else:
+		return false
 		print("slot change failed")
 
 		

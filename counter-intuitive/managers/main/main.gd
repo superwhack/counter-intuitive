@@ -65,6 +65,10 @@ var triggerIndex : int
 
 var tilesLocked : bool
 
+var tilesMovedRound : int
+var tilesMovedStage : int
+var tilesMovedRun
+
 @export var gameOverNodeTemp : Node2D
 
 # Called when the node enters the scene tree for the first time.
@@ -90,6 +94,7 @@ func _ready() -> void:
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
 	SignalBus.PullNextTrigger.connect(PullNextTrigger)
 	SignalBus.Score.connect(OnScoreSignal)
+	SignalBus.TileMoved.connect(OnTileMovedSignal)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -122,10 +127,14 @@ func ResetRound():
 	triggerArray.clear()
 	triggerIndex = 0
 	
-	tilesLocked = false
+	tilesMovedRound = 0
 	
 	tilesRemaining = maxTilesPerRound
 	
+	
+	tilesLocked = false
+
+	# check for loss
 	if (roundsRemaining == 0):
 		if (score > goal):
 			# Gain Money
@@ -152,13 +161,16 @@ func StartStage():
 	
 func ResetStage():
 	UpdateFromGlobals()
+	
+	score = 0
+	tilesMovedStage = 0
+	roundsRemaining = maxRounds
+	
 	board.ResetStage()
 	tileManager.ResetStage()
 
-	score = 0
 	
-	
-	roundsRemaining = maxRounds
+
 	
 	
 func ResetRun():
@@ -167,7 +179,7 @@ func ResetRun():
 	maxRounds = 3
 	roundsRemaining = maxRounds
 	
-	maxTilesPerRound = 4
+	maxTilesPerRound = 8
 	tilesRemaining = maxTilesPerRound
 	
 	tokens = 0
@@ -175,6 +187,8 @@ func ResetRun():
 	handSize = 8
 	
 	goal = 30
+	
+	tilesMovedRun = 0
 	
 	tileManager.ResetRun()
 	board.ResetRun()
@@ -231,7 +245,6 @@ func ShowScreen(screen):
 func HideAllScreens():
 	for screen in screenArray:
 		screen.visible = false
-		print(screen.modulate)
 		
 func CreateStartingDeck():
 	match selectedStartingDeck:
@@ -241,7 +254,9 @@ func CreateStartingDeck():
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 10:
 				tokens += 10
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes["RedTile"])
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
+				
 
 func GameOver():
 	ShowScreen(mainMenuScreen)
@@ -255,7 +270,6 @@ func GetLastTileTrigger():
 		if (tempIndex == -1):
 			return null
 		callable = triggerArray[tempIndex]
-		print(callable)
 		found = (callable.get_object() is Tile)
 		tempIndex -= 1
 
@@ -263,3 +277,9 @@ func GetLastTileTrigger():
 	
 func OnScoreSignal(source, value): 
 	score += value
+	
+func OnTileMovedSignal(tile, source, direction):
+	tilesMovedRound += 1
+	tilesMovedStage += 1
+	tilesMovedRun += 1
+	

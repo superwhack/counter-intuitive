@@ -1,5 +1,6 @@
 extends Tile
-class_name OrangeTileClass
+var copies = []
+
 func _init() -> void:
 	pass
 	
@@ -14,13 +15,19 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
+	# THIS IS BUSTED ! NEED TO MAKE A CUSTOM DUPLICATE FUNCTION :) THEORY WORKS THO IN MY HEAD
 	var trigger = main.GetLastTileTrigger()
-	if (trigger != null && trigger.get_object() is not OrangeTileClass):
-		trigger.call()
+	if (trigger != null):
+		var tileToCopy = trigger.get_object()
+		var copy = tileToCopy.duplicate(true)
+		copy.location = Reference.TILE_LOCATIONS.none
+		tileManager.allTiles.append(copy)
+		tileManager.AddTileToLocation(copy, Reference.TILE_LOCATIONS.hand)
+		
 	else:
 		print("I failed :(")
-		get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
-
+		
+	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	modulate = Color(0.6, 0.6, 0.6)
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
 
@@ -33,7 +40,10 @@ func ResetRound():
 	pass
 	
 func ResetStage():
-	pass
+	for copy in copies:
+		tileManager.allTiles.erase(copy)
+		tileManager.RemoveTileFromManagerArrays(copy)
+		copy.queue_free()
 
 func CreateCallable() -> Callable:
 	var unbound = Callable(self, "Trigger")
@@ -41,5 +51,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Orange Tile\nRetrigger the last tile that Triggered."
+	description = "Purple Tile\nRetrigger the last tile that Triggered."
 	tooltipLabel.text = description

@@ -189,10 +189,73 @@ func ResetRun():
 func _process(delta: float) -> void:
 	pass
 
+# Returns an array, where the 1st value is the successfulness of the move
+# and the second value is the direction moved.
 func MoveTile(tile : Tile, direction : Reference.DIRECTIONS):
 	var newSlot = Globals.board.GetNeighboringSlotFromTile(tile, direction)
 	if (newSlot != null):
-		Globals.board.ChangeSlot(tile, newSlot)
+		return [Globals.board.ChangeSlot(tile, newSlot), direction]
 	else:
-		print("move failure")
+		return [false, -1]
+		
+func MoveTileInRandomDirection(tile : Tile):
+	var direction = randi_range(0, 7)
+	return MoveTile(tile, direction)
 	
+func MoveTileInRandomCardinalDirection(tile : Tile):
+	return MoveTile(tile, randi_range(0, 3))
+	
+func MoveTileInRandomOrdinalDirection(tile : Tile):
+	return MoveTile(tile, randi_range(4, 7))
+
+func MoveTileInRandomValidDirection(tile : Tile):
+	var directions = Reference.Directions.duplicate()
+	var returnValue = [false, -1]
+	while (directions.size() > 0):
+		var newDirection = directions[randi_range(0, directions.size() - 1)]
+		returnValue = MoveTile(tile, newDirection)
+		if (returnValue[0]):
+			return returnValue
+		else:
+			print("directional failure")
+			directions.erase(newDirection)
+	return [false, -1]
+			
+	
+func MoveTileInValidRandomCardinalDirection(tile : Tile):
+	var directions = Reference.Cardinals.duplicate()
+	var returnValue = [false, -1]
+	while (directions.size() > 0):
+		var newDirection = directions[randi_range(0, directions.size() - 1)]
+		returnValue = MoveTile(tile, newDirection)
+		if (returnValue[0]):
+			return returnValue
+		else:
+			print("directional failure")
+			directions.erase(newDirection)
+	return [false, -1]
+	
+func MoveTileInValidRandomOrdinalDirection(tile : Tile):
+	var directions = Reference.Ordinals.duplicate()
+	var returnValue = [false, -1]
+	while (directions.size() > 0):
+		var newDirection = directions[randi_range(0, directions.size() - 1)]
+		returnValue = MoveTile(tile, newDirection)
+		if (returnValue[0]):
+			return returnValue
+		else:
+			print("directional failure")
+			directions.erase(newDirection)
+	return [false, -1]
+
+func GetNeighboringTiles(tile : Tile):
+	var neighboringSlots = []
+	var neighboringTiles = []
+	for i in 8:
+		neighboringSlots.append(Globals.board.GetNeighboringSlotFromTile(tile, i))
+		
+	for slot in neighboringSlots:
+		if (slot != null && slot.tile != null):
+			neighboringTiles.append(slot.tile)
+			
+	return neighboringTiles
