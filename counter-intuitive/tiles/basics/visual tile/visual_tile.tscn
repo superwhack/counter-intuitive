@@ -10,6 +10,7 @@ radius = 31.257
 script = ExtResource("1_dmhvm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_hqu5d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

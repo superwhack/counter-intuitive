@@ -192,5 +192,7 @@ func _process(delta: float) -> void:
 func MoveTile(tile : Tile, direction : Reference.DIRECTIONS):
 	var newSlot = Globals.board.GetNeighboringSlotFromTile(tile, direction)
 	if (newSlot != null):
-		pass
+		Globals.board.ChangeSlot(tile, newSlot)
+	else:
+		print("move failure")
 	

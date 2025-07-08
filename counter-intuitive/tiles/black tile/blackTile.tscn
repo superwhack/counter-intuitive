@@ -16,6 +16,7 @@ tooltip = NodePath("Tile Tooltip")
 tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_1xgrj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -6,10 +6,10 @@ void vertex() {
 	UV -= vec2(0.5, 0.5);
 
 	UV *= scale;
-	
+
 	UV.x += TIME * 0.01;
 	UV.y += sin(TIME * 0.02);
-	
+
 
 }
 
