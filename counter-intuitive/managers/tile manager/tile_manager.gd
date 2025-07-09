@@ -15,6 +15,10 @@ var discardArray : Array
 @export var tileBasic : PackedScene
 @export var handSlot : PackedScene
 
+@export var visualTileScene : PackedScene
+
+var visualTiles : Array
+
 var allTiles : Array
 
 var handSlots : Array
@@ -132,9 +136,14 @@ func CreatePlayTileToDeck(tileScene : PackedScene):
 	var newTile = CreatePlayTile(tileScene)
 	AddTileToLocation(newTile, Reference.TILE_LOCATIONS.deck)
 	newTile.position = Vector2(0, 0)
+	return newTile
 
-func CreateVisualTile(tileScene : PackedScene):
-	pass
+func CreateVisualTile(tile : Tile):
+	var visualTile = visualTileScene.instantiate()
+	add_child(visualTile)
+	visualTile.Associate(tile)
+	return visualTile
+	
 	
 func ShuffleDiscardIntoDeck():
 	while(discardArray.size() > 0):
@@ -259,3 +268,5 @@ func GetNeighboringTiles(tile : Tile):
 			neighboringTiles.append(slot.tile)
 			
 	return neighboringTiles
+
+	

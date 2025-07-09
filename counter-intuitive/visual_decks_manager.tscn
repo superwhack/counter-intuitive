@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5wk35ymjims5"]
+
+[ext_resource type="Script" uid="uid://dewf5pixrv4xj" path="res://visual_decks_manager.gd" id="1_4qgfl"]
+[ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="2_vg58p"]
+
+[node name="Visual Decks Manager" type="Control" node_paths=PackedStringArray("visualDeck")]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_4qgfl")
+visualDeck = NodePath("ScrollContainer/Visual Deck")
+visualTileSlotScene = ExtResource("2_vg58p")
+
+[node name="Visual Discard" type="HFlowContainer" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_right = 477.0
+offset_bottom = 291.0
+
+[node name="Visual Deck" type="HFlowContainer" parent="ScrollContainer"]
+layout_mode = 2

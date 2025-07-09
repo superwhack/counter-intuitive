@@ -4,7 +4,7 @@ class_name Main
 var uiManager : UIManager
 var board : Board
 var tileManager : TileManager
-
+var visualDecksManager : VisualDecksManager
 @export var gameplayScreen : Node2D
 @export var mainMenuScreen : Node2D
 @export var pauseScreen : Node2D
@@ -148,6 +148,7 @@ func ResetRound():
 			
 func StartRound():
 	tileManager.StartRound()
+	visualDecksManager.StartRound()
 
 func StartStage():
 	goal *= 1.4
@@ -201,7 +202,9 @@ func UpdateFromGlobals():
 	uiManager = Globals.uiManager
 	board = Globals.board
 	tileManager = Globals.tileManager
+	visualDecksManager = Globals.visualDecksManager
 
+	
 func PullNextTrigger():
 	if (triggerIndex == triggerArray.size()):
 		ResetRound()
@@ -254,7 +257,6 @@ func CreateStartingDeck():
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 10:
 				tokens += 10
-				tileManager.CreatePlayTileToDeck(Reference.TileScenes["RedTile"])
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 				
 

@@ -9,7 +9,7 @@ func _init() -> void:
 func _ready() -> void:
 	score = 1
 	super()
-
+	tileName = "BlackTile"
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

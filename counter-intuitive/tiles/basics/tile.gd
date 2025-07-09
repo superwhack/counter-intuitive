@@ -4,6 +4,7 @@ class_name Tile
 @export var lerpSpeedFactor = 10
 
 @export var sprite : Sprite2D
+
 var pickedUp: bool = false
 var hover : bool = false
 var location : int
@@ -18,6 +19,8 @@ var tileManager : TileManager
 var main : Main
 
 var description : String
+
+var tileName : String
 
 @export var tooltip : Node
 @export var tooltipLabel : Label
@@ -146,9 +149,9 @@ func _on_mouse_exited() -> void:
 	hover = false;
 	scale = Vector2(1, 1)
 	
-func OnBoardTrigger():
-	print("I am a tile named " + name + " and I was triggered!")
-	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
+#func OnBoardTrigger():
+	#print("I am a tile named " + name + " and I was triggered!")
+	#get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	
 func ShowTooltip():
 	UpdateTooltipLabel()

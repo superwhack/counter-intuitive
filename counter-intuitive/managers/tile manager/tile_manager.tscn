@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddw48c7wbi64j"]
+[gd_scene load_steps=5 format=3 uid="uid://ddw48c7wbi64j"]
 
 [ext_resource type="Script" uid="uid://c5kem64eenink" path="res://managers/tile manager/tile_manager.gd" id="1_el2rg"]
 [ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_5llmx"]
 [ext_resource type="PackedScene" uid="uid://bjlbi0dvli84u" path="res://managers/tile manager/hand slot/hand_slot.tscn" id="3_xbsgu"]
+[ext_resource type="PackedScene" uid="uid://c3jbyh14pukcu" path="res://tiles/basics/visual tile/visual_tile.tscn" id="4_gwj7e"]
 
 [node name="Tile Manager" type="Control" node_paths=PackedStringArray("handNode", "deckNode", "discardNode")]
 layout_mode = 3
@@ -18,6 +19,7 @@ deckNode = NodePath("Deck")
 discardNode = NodePath("Discard")
 tileBasic = ExtResource("2_5llmx")
 handSlot = ExtResource("3_xbsgu")
+visualTileScene = ExtResource("4_gwj7e")
 
 [node name="Hand" type="HFlowContainer" parent="."]
 layout_mode = 1
