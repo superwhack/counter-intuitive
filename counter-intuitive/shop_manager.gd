@@ -1,0 +1,52 @@
+extends Node2D
+class_name ShopManager
+
+@export var shopTilesContainer : Control
+var shopTilesArray : Array
+
+@export var realTilesNode : Node2D
+var realTilesArray : Array
+
+@export var shopTileScene : PackedScene
+
+@export var visualTileSlotScene : PackedScene
+
+func _init() -> void:
+	Globals.shopManager = self
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func CreateShopTile(tileName : String):
+	var realTile = Globals.tileManager.CreateTile(Reference.TileScenes[tileName])
+	var visualTile = Globals.tileManager.CreateVisualTile(realTile)
+	
+	var shopTile = shopTileScene.instantiate()
+	
+	shopTile.realTile = realTile
+	shopTile.visualTile = visualTile
+	
+	realTile.reparent(realTilesNode)
+	realTilesArray.append(realTile)
+	
+	visualTile.showPrice = true
+	
+	shopTile.shopTileManager = self
+	
+	AddShopTileToNewSlot(shopTile)
+	
+func AddShopTileToNewSlot(shopTile : ShopTile):
+	var newSlot = visualTileSlotScene.instantiate()
+	shopTilesContainer.add_child(newSlot)
+	newSlot.add_child(shopTile)
+	
+func Reset():
+	pass
+	
+func AttemptToBuy(shopTile):
+	pass

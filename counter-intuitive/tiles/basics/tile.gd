@@ -22,6 +22,8 @@ var description : String
 
 var tileName : String
 
+var price : int
+
 @export var tooltip : Node
 @export var tooltipLabel : Label
 

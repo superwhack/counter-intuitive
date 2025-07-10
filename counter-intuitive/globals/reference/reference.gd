@@ -9,6 +9,8 @@ extends Node2D
 @export var RedTile : PackedScene
 @export var PurpleTile : PackedScene
 @export var BlueTile : PackedScene
+
+
 enum COLLISION_LAYERS {
 	Tiles,
 	BoardSpaces
@@ -57,7 +59,18 @@ var TileScenes : Dictionary = {
 	"BlueTile" : BlueTile
 }
 
-
+var CommonTiles : Array = [
+	"WhiteTile",
+	"BlackTile",
+	"GreenTile",
+	"GrayTile",
+	"OrangeTile",
+	"YellowTile",
+	"PinkTile",
+	"RedTile",
+	"PurpleTile",
+	"BlueTile"]
+	
 var handSlotSize : Vector2
 var boardSlotSize : Vector2
 
@@ -78,7 +91,6 @@ func _ready() -> void:
 	TileScenes["PurpleTile"] = PurpleTile
 	TileScenes["BlueTile"] = BlueTile
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -255,7 +255,7 @@ func CreateStartingDeck():
 			for i in 20:
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 		Reference.STARTING_DECKS.TestDeck:
-			for i in 10:
+			for i in 20:
 				tokens += 10
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 				

@@ -9,7 +9,7 @@ var mouseWorldPosition : Vector2
 var camera : Camera2D
 var rng : RandomNumberGenerator
 var visualDecksManager : VisualDecksManager
-
+var shopManager : ShopManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

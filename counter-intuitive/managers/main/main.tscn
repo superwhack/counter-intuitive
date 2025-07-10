@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpptyml8my5te"]
+[gd_scene load_steps=10 format=3 uid="uid://dpptyml8my5te"]
 
 [ext_resource type="Script" uid="uid://clrfh61lutycf" path="res://managers/main/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dge4f8gmo3c60" path="res://board/board/board.tscn" id="3_sugp2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b5wk35ymjims5" path="res://visual_decks_manager.tscn" id="6_e2la8"]
 [ext_resource type="Texture2D" uid="uid://6dvgxhys2vj6" path="res://assets/title.png" id="6_vtaec"]
 [ext_resource type="Texture2D" uid="uid://cdwegcmfap177" path="res://assets/Untitled.png" id="7_fqp6p"]
+[ext_resource type="PackedScene" uid="uid://daw4vxupxppab" path="res://shop_manager.tscn" id="8_1ueur"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("gameplayScreen", "mainMenuScreen", "pauseScreen", "shopScreen", "background", "startRunButton", "gameOverNodeTemp")]
 script = ExtResource("1_0wfyh")
@@ -50,8 +51,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Visual Decks Manager" parent="Gameplay Screen" instance=ExtResource("6_e2la8")]
+offset_left = 901.0
+offset_top = 138.0
+offset_right = 901.0
+offset_bottom = 138.0
 
 [node name="Main Menu Screen" type="Node2D" parent="."]
+visible = false
 
 [node name="Title" type="TextureRect" parent="Main Menu Screen"]
 texture_filter = 1
@@ -81,10 +87,14 @@ grow_vertical = 2
 text = "Start Run!"
 
 [node name="Pause Screen" type="Node2D" parent="."]
+visible = false
 
 [node name="Shop Screen" type="Node2D" parent="."]
 
+[node name="Shop Manager" parent="Shop Screen" instance=ExtResource("8_1ueur")]
+
 [node name="GameOverNode(TEMP)" type="Node2D" parent="."]
+visible = false
 position = Vector2(613, 335)
 
 [node name="Sprite2D" type="Sprite2D" parent="GameOverNode(TEMP)"]

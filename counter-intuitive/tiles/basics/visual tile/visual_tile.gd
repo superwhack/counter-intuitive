@@ -9,7 +9,7 @@ class_name VisualTile
 @export var sprite : Sprite2D
 @export var tooltip : Node2D
 @export var tooltipLabel : Label
-
+@export var priceLabel : Label
 var associatedTile : Tile
 
 var hover : bool
@@ -20,8 +20,9 @@ var showPrice : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	showPrice = false
+	HideTooltip()
+	HidePrice()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -62,9 +63,12 @@ func UpdateTooltipLabel():
 	tooltipLabel.text = description
 
 func ShowPrice():
-	pass
+	priceLabel.text = "$" + str(associatedTile.price)
+	priceLabel.visible = true
+	
 func HidePrice():
-	pass
+	priceLabel.visible = false
+	
 
 
 func _on_mouse_entered() -> void:

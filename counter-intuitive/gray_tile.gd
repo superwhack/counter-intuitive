@@ -8,6 +8,7 @@ func _init() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	score = 3
+	price = 3
 	super()
 	tileName = "GrayTile"
 	

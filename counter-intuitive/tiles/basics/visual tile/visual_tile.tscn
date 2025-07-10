@@ -7,11 +7,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqu5d"]
 radius = 31.257
 
-[node name="Visual Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel")]
+[node name="Visual Tile" type="Area2D" node_paths=PackedStringArray("sprite", "tooltip", "tooltipLabel", "priceLabel")]
 script = ExtResource("1_dmhvm")
 sprite = NodePath("Sprite2D")
 tooltip = NodePath("Tile Tooltip")
 tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
+priceLabel = NodePath("Price")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -24,8 +25,21 @@ shape = SubResource("CircleShape2D_hqu5d")
 [node name="Tile Tooltip" parent="." instance=ExtResource("3_be4lr")]
 
 [node name="Price" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 35.0
+offset_right = 20.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "1"
+horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

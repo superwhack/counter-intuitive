@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://daw4vxupxppab"]
+
+[ext_resource type="Script" uid="uid://bq5kwctx12xwy" path="res://shop_manager.gd" id="1_3rk3w"]
+
+[node name="Shop Manager" type="Node2D"]
+script = ExtResource("1_3rk3w")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(600, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Real Tiles" type="Node2D" parent="."]
+visible = false

@@ -3,20 +3,61 @@
 [ext_resource type="Script" uid="uid://dewf5pixrv4xj" path="res://visual_decks_manager.gd" id="1_4qgfl"]
 [ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="2_vg58p"]
 
-[node name="Visual Decks Manager" type="Control" node_paths=PackedStringArray("visualDeck")]
+[node name="Visual Decks Manager" type="Control" node_paths=PackedStringArray("visualDeck", "visualDeckScroll", "visualDiscard", "visualDiscardScroll")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_4qgfl")
-visualDeck = NodePath("ScrollContainer/Visual Deck")
+visualDeck = NodePath("DeckScroll/Visual Deck")
+visualDeckScroll = NodePath("DeckScroll")
+visualDiscard = NodePath("DiscardScroll/Visual Discard")
+visualDiscardScroll = NodePath("DiscardScroll")
 visualTileSlotScene = ExtResource("2_vg58p")
 
-[node name="Visual Discard" type="HFlowContainer" parent="."]
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="DeckScroll" type="ScrollContainer" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 0
-offset_right = 477.0
-offset_bottom = 291.0
+offset_top = 63.0
+offset_right = 400.0
+offset_bottom = 463.0
 
-[node name="Visual Deck" type="HFlowContainer" parent="ScrollContainer"]
+[node name="Visual Deck" type="HFlowContainer" parent="DeckScroll"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DiscardScroll" type="ScrollContainer" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 0
+offset_top = 63.0
+offset_right = 400.0
+offset_bottom = 463.0
+
+[node name="Visual Discard" type="HFlowContainer" parent="DiscardScroll"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button Holder" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 60.0
+alignment = 1
+
+[node name="Deck Button" type="Button" parent="Button Holder"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Toggle Deck View"
+
+[node name="Discard Button" type="Button" parent="Button Holder"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Toggle Discard View"
+
+[connection signal="pressed" from="Button Holder/Deck Button" to="." method="_on_deck_button_pressed"]
+[connection signal="pressed" from="Button Holder/Discard Button" to="." method="_on_discard_button_pressed"]
