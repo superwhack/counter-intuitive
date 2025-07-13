@@ -5,6 +5,8 @@ var uiManager : UIManager
 var board : Board
 var tileManager : TileManager
 var visualDecksManager : VisualDecksManager
+var shopManager : ShopManager
+
 @export var gameplayScreen : Node2D
 @export var mainMenuScreen : Node2D
 @export var pauseScreen : Node2D
@@ -82,7 +84,7 @@ func _ready() -> void:
 	
 	tilesLocked = false
 	
-	screenArray = [gameplayScreen, pauseScreen, mainMenuScreen]
+	screenArray = [gameplayScreen, pauseScreen, mainMenuScreen, shopScreen]
 	
 	HideAllScreens()
 	ShowScreen(mainMenuScreen)
@@ -139,8 +141,7 @@ func ResetRound():
 		if (score > goal):
 			# Gain Money
 			tokens += (int)(10 * (score - goal) / goal)
-			ResetStage()
-			StartStage()
+			MoveToShop()
 		else:
 			gameOverNodeTemp.visible = true
 			get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
@@ -151,11 +152,13 @@ func StartRound():
 	visualDecksManager.StartRound()
 
 func StartStage():
+	ResetStage()
 	goal *= 1.4
 	goal = (int)(goal)
 	currentStage += 1
-	
-	ResetStage()
+
+	ResetRound()
+	StartRound()
 
 	
 	
@@ -203,7 +206,7 @@ func UpdateFromGlobals():
 	board = Globals.board
 	tileManager = Globals.tileManager
 	visualDecksManager = Globals.visualDecksManager
-
+	shopManager = Globals.shopManager
 	
 func PullNextTrigger():
 	if (triggerIndex == triggerArray.size()):
@@ -244,6 +247,8 @@ func ShowScreen(screen):
 			background.ZoomTo(3)
 		pauseScreen:
 			background.ZoomTo(5)
+		shopScreen:
+			background.ZoomTo(2)
 			
 func HideAllScreens():
 	for screen in screenArray:
@@ -284,4 +289,14 @@ func OnTileMovedSignal(tile, source, direction):
 	tilesMovedRound += 1
 	tilesMovedStage += 1
 	tilesMovedRun += 1
+	
+func MoveToShop():
+	ShowScreen(shopScreen)
+	shopManager.ResetShop()
+	shopManager.StartShop()
+	
+func MoveToBoard():
+	ShowScreen(gameplayScreen)
+	ResetStage()
+	StartStage()
 	

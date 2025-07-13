@@ -35,6 +35,7 @@ func CreateShopTile(tileName : String):
 	realTilesArray.append(realTile)
 	
 	visualTile.showPrice = true
+	visualTile.reparent(shopTile)
 	
 	shopTile.shopTileManager = self
 	
@@ -45,8 +46,25 @@ func AddShopTileToNewSlot(shopTile : ShopTile):
 	shopTilesContainer.add_child(newSlot)
 	newSlot.add_child(shopTile)
 	
-func Reset():
-	pass
+func ResetShop():
+	for shopTile in shopTilesContainer.get_children():
+		shopTilesArray.erase(shopTile)
+		shopTile.queue_free()
+	
+func StartShop():
+	for i in 3:
+		CreateShopTile(Reference.GetCommonTileName())
 	
 func AttemptToBuy(shopTile):
-	pass
+	print("purchase attempted")
+	if (Globals.main.tokens >= shopTile.realTile.price):
+		Globals.main.tokens -= shopTile.realTile.price
+		shopTile.get_parent().queue_free()
+		Globals.tileManager.AddTileToLocation(shopTile.realTile, Reference.TILE_LOCATIONS.deck)
+		Globals.tileManager.allTiles.append(shopTile.realTile)
+	else:
+		print("FAILED!")
+
+
+func _on_leave_button_pressed() -> void:
+	Globals.main.MoveToBoard()

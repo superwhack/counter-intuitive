@@ -92,6 +92,8 @@ func _ready() -> void:
 	TileScenes["BlueTile"] = BlueTile
 	pass # Replace with function body.
 
+func GetCommonTileName():
+	return(CommonTiles[randi_range(0, CommonTiles.size() - 1)])
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

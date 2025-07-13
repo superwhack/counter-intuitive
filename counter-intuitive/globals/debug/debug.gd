@@ -52,5 +52,5 @@ func debug_reset_run():
 #endregion
 
 func debug_generic():
-	for i in 8:
-		print(Globals.board.GetNeighboringSlot(Globals.board.boardSlotsArray[0][0], i))
+	Globals.main.tokens += 10000
+	Globals.main.score += 10000
