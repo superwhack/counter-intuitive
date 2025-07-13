@@ -30,6 +30,8 @@ func _debug_print_arrays():
 	print("Board: " + str(Globals.board.boardTilesArray))
 	print("Flat Board: " + str(Globals.board.flatBoardTilesArray))
 	print("Trigger Array: " + str(Globals.main.triggerArray))
+	print("AllTiles: " + str(Globals.tileManager.allTiles))
+	
 
 
 func debug_create_tile():

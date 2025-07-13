@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://buttons/play button/play_button.tscn" id="2_iku3t"]
 [ext_resource type="FontFile" uid="uid://yfwr8l0cg8ky" path="res://ui_basic_font.tres" id="3_qdyrm"]
 
-[node name="UI Manager" type="Control" node_paths=PackedStringArray("scoreNumberLabel", "roundsNumberLabel", "tokensNumberLabel", "goalNumberLabel", "tilesNumberLabel")]
+[node name="UI Manager" type="Control" node_paths=PackedStringArray("scoreNumberLabel", "roundsNumberLabel", "tokensNumberLabel", "goalNumberLabel", "tilesNumberLabel", "playButton", "score", "goal", "tokens", "tiles", "rounds")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rwj1f")
@@ -13,6 +13,12 @@ roundsNumberLabel = NodePath("TRC Container/Rounds/Round Numerical Label")
 tokensNumberLabel = NodePath("TLC Container/Tokens/Tokens Numerical Label")
 goalNumberLabel = NodePath("TLC Container/Goal/Goal Numerical Label")
 tilesNumberLabel = NodePath("TLC Container/Tiles/Tiles Numerical Label")
+playButton = NodePath("Play Button")
+score = NodePath("TLC Container/Score")
+goal = NodePath("TLC Container/Goal")
+tokens = NodePath("TLC Container/Tokens")
+tiles = NodePath("TLC Container/Tiles")
+rounds = NodePath("TRC Container/Rounds")
 
 [node name="Play Button" parent="." instance=ExtResource("2_iku3t")]
 layout_mode = 1

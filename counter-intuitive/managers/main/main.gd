@@ -90,7 +90,7 @@ func _ready() -> void:
 	ShowScreen(mainMenuScreen)
 	
 	# TEMPORARY!
-	selectedStartingDeck = Reference.STARTING_DECKS.TestDeck
+	selectedStartingDeck = Reference.STARTING_DECKS.WhiteDeck
 	
 	# CONNECTING SIGNALS
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
@@ -120,7 +120,7 @@ func StartRun():
 	CreateStartingDeck()
 	ShowScreen(gameplayScreen)
 	
-	StartRound()
+	StartStage()
 	
 		
 func ResetRound():
@@ -135,29 +135,15 @@ func ResetRound():
 	
 	
 	tilesLocked = false
-
-	# check for loss
-	if (roundsRemaining == 0):
-		if (score > goal):
-			# Gain Money
-			tokens += (int)(10 * (score - goal) / goal)
-			MoveToShop()
-		else:
-			gameOverNodeTemp.visible = true
-			get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
-			get_tree().create_timer(2).timeout.connect(func():ShowScreen(mainMenuScreen))
 			
 func StartRound():
+	ResetRound()
 	tileManager.StartRound()
 	visualDecksManager.StartRound()
 
 func StartStage():
 	ResetStage()
-	goal *= 1.4
-	goal = (int)(goal)
-	currentStage += 1
 
-	ResetRound()
 	StartRound()
 
 	
@@ -173,7 +159,7 @@ func ResetStage():
 	board.ResetStage()
 	tileManager.ResetStage()
 
-	
+	ResetRound()
 
 	
 	
@@ -183,12 +169,12 @@ func ResetRun():
 	maxRounds = 3
 	roundsRemaining = maxRounds
 	
-	maxTilesPerRound = 8
+	maxTilesPerRound = 4
 	tilesRemaining = maxTilesPerRound
 	
 	tokens = 0
 	
-	handSize = 8
+	handSize = 6
 	
 	goal = 30
 	
@@ -197,6 +183,7 @@ func ResetRun():
 	tileManager.ResetRun()
 	board.ResetRun()
 	
+	ResetStage()
 	# TEMP!
 	gameOverNodeTemp.visible = false
 	
@@ -210,7 +197,21 @@ func UpdateFromGlobals():
 	
 func PullNextTrigger():
 	if (triggerIndex == triggerArray.size()):
-		ResetRound()
+		# check for loss
+		if (roundsRemaining == 0):
+			print(score)
+			print(goal)
+			if (score >= goal):
+				# Gain Money
+				tokens += (int)(10 * (score - goal) / goal)
+				goal *= 1.4
+				goal = (int)(goal)
+				currentStage += 1
+				MoveToShop()
+			else:
+				gameOverNodeTemp.visible = true
+				get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
+				get_tree().create_timer(2).timeout.connect(func():ShowScreen(mainMenuScreen))
 		StartRound()
 	else:
 		triggerArray[triggerIndex].call()
@@ -242,13 +243,17 @@ func ShowScreen(screen):
 	currentScreen = screen
 	match screen:
 		gameplayScreen:
+			uiManager.ShowGameplay()
+			uiManager.reparent(gameplayScreen)
 			background.ZoomTo(1)
 		mainMenuScreen: 
 			background.ZoomTo(3)
 		pauseScreen:
 			background.ZoomTo(5)
 		shopScreen:
+			uiManager.ShowShop()
 			background.ZoomTo(2)
+			uiManager.reparent(shopScreen)
 			
 func HideAllScreens():
 	for screen in screenArray:
@@ -257,7 +262,7 @@ func HideAllScreens():
 func CreateStartingDeck():
 	match selectedStartingDeck:
 		Reference.STARTING_DECKS.WhiteDeck:
-			for i in 20:
+			for i in 12:
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 20:
@@ -297,6 +302,5 @@ func MoveToShop():
 	
 func MoveToBoard():
 	ShowScreen(gameplayScreen)
-	ResetStage()
 	StartStage()
 	

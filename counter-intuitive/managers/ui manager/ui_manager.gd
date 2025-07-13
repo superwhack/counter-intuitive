@@ -6,6 +6,13 @@ class_name UIManager
 @export var tokensNumberLabel : Label
 @export var goalNumberLabel : Label
 @export var tilesNumberLabel : Label
+@export var playButton : Button
+
+@export var score : Control
+@export var goal : Control
+@export var tokens : Control
+@export var tiles : Control
+@export var rounds : Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,3 +38,19 @@ func UpdateGoal():
 	
 func UpdateTiles():
 	tilesNumberLabel.text = str(Globals.main.tilesRemaining)
+
+func ShowShop():
+	score.visible = false
+	goal.visible = false
+	tokens.visible = true
+	tiles.visible = false
+	rounds.visible = false
+	playButton.visible = false
+
+func ShowGameplay():
+	score.visible = true
+	goal.visible = true
+	tokens.visible = true
+	tiles.visible = true
+	rounds.visible = true
+	playButton.visible = true

@@ -68,7 +68,7 @@ var CommonTiles : Array = [
 	"YellowTile",
 	"PinkTile",
 	"RedTile",
-	"PurpleTile",
+	#"PurpleTile",
 	"BlueTile"]
 	
 var handSlotSize : Vector2

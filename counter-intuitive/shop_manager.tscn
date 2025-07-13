@@ -4,11 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://sv672axhrs2a" path="res://shop_tile.tscn" id="2_qhy2r"]
 [ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="3_8t7m5"]
 
-[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer")]
+[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
 script = ExtResource("1_3rk3w")
 shopTilesContainer = NodePath("HFlowContainer")
 shopTileScene = ExtResource("2_qhy2r")
 visualTileSlotScene = ExtResource("3_8t7m5")
+maxTilesButton = NodePath("Max Tiles Button")
+handSizeButton = NodePath("Hand Size Button")
+roundsPerStageButton = NodePath("Rounds Per Stage Button")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(600, 100)
@@ -28,4 +31,31 @@ offset_right = 696.0
 offset_bottom = 715.0
 text = "Leave Shop"
 
+[node name="Max Tiles Button" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 1169.0
+offset_top = 535.0
+offset_right = 1269.0
+offset_bottom = 585.0
+text = "+ Max Tiles"
+
+[node name="Hand Size Button" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 1167.0
+offset_top = 598.0
+offset_right = 1267.0
+offset_bottom = 648.0
+text = "+ Max Tiles"
+
+[node name="Rounds Per Stage Button" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 1170.0
+offset_top = 658.0
+offset_right = 1270.0
+offset_bottom = 708.0
+text = "+ Max Tiles"
+
 [connection signal="pressed" from="Leave Button" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="Max Tiles Button" to="." method="AttemptToBuyMaxTiles"]
+[connection signal="pressed" from="Hand Size Button" to="." method="AttemptToBuyHandSize"]
+[connection signal="pressed" from="Rounds Per Stage Button" to="." method="AttemptToBuyRoundsPerStage"]

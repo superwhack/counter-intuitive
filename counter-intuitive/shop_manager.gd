@@ -11,6 +11,15 @@ var realTilesArray : Array
 
 @export var visualTileSlotScene : PackedScene
 
+@export var maxTilesButton : Button
+var maxTilesPrice = 8
+
+@export var handSizeButton : Button
+var handSizePrice = 6
+
+@export var roundsPerStageButton : Button
+var roundsPerStagePrice = 10
+
 func _init() -> void:
 	Globals.shopManager = self
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +29,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	UpdateButtonText()
 
 func CreateShopTile(tileName : String):
 	var realTile = Globals.tileManager.CreateTile(Reference.TileScenes[tileName])
@@ -58,13 +67,43 @@ func StartShop():
 func AttemptToBuy(shopTile):
 	print("purchase attempted")
 	if (Globals.main.tokens >= shopTile.realTile.price):
+		# deduct the money
 		Globals.main.tokens -= shopTile.realTile.price
+		#remove it from the array (so that the real tile doesnt get deleted i think)
+		shopTilesArray.erase(shopTile)
+		
+		# get rid of shop slot
 		shopTile.get_parent().queue_free()
+		
+		# add the real tile to the deck
 		Globals.tileManager.AddTileToLocation(shopTile.realTile, Reference.TILE_LOCATIONS.deck)
+		# add it to allTiles
 		Globals.tileManager.allTiles.append(shopTile.realTile)
 	else:
 		print("FAILED!")
 
-
+func AttemptToBuyMaxTiles():
+	if (Globals.main.tokens >= maxTilesPrice):
+		Globals.main.tokens -= maxTilesPrice
+		Globals.main.maxTilesPerRound += 1
+		
+func AttemptToBuyHandSize():
+	if (Globals.main.tokens >= handSizePrice):
+		Globals.main.tokens -= handSizePrice
+		Globals.main.handSize += 1
+		
+func AttemptToBuyRoundsPerStage():
+	if (Globals.main.tokens >= roundsPerStagePrice):
+		Globals.main.tokens -= roundsPerStagePrice
+		Globals.main.maxRounds += 1
+		
+func UpdateButtonText():
+	maxTilesButton.text = "+ Max Tiles ($" + str(maxTilesPrice) + ")"
+	handSizeButton.text = "+ Hand Size ($" + str(handSizePrice) + ")"
+	roundsPerStageButton.text = "+ Rounds Per Stage ($" + str(roundsPerStagePrice) + ")"
+	
+	
+	
+	
 func _on_leave_button_pressed() -> void:
 	Globals.main.MoveToBoard()
