@@ -42,6 +42,7 @@ func ReparentToHandSlot(tile : Node2D, slot : Control):
 	tile.desiredPosition = Reference.handSlotSize / 2
 	
 func ReparentToLastOpenSlot(tile : Node2D):
+	print("wenttolastopen")
 	ReparentToHandSlot(tile, handSlots[lastOpenIndex])
 	lastOpenIndex += 1
 	
@@ -95,6 +96,7 @@ func ReparentTileFromLocation(tile):
 	match(tile.location):
 		Reference.TILE_LOCATIONS.hand:
 			ReparentToLastOpenSlot(tile)
+			print(lastOpenIndex)
 		Reference.TILE_LOCATIONS.deck:
 			tile.reparent(deckNode)
 		Reference.TILE_LOCATIONS.discard:
@@ -159,13 +161,14 @@ func ShuffleAllIntoDeck():
 	deckArray.shuffle()
 	
 func DrawHand():
+	lastOpenIndex = handArray.size()
 	for i in (main.handSize - handArray.size()):
 		DrawTopTileFromDeck()
 
 func CreateHand():
 	for i in main.handSize:
 		CreateNewHandSlot()
-	lastOpenIndex = 0;
+
 	
 
 func StartRound():
@@ -176,6 +179,11 @@ func ResetRound():
 		tile.ResetRound()
 	
 func ResetStage():
+	for slot in handSlots:
+		slot.queue_free()
+	handSlots.clear()
+
+	CreateHand()
 	ShuffleAllIntoDeck()
 	for tile in allTiles:
 		tile.ResetStage()
@@ -185,11 +193,7 @@ func ResetRun():
 		tile.queue_free()
 	allTiles.clear()
 	
-	for slot in handSlots:
-		slot.queue_free()
-	handSlots.clear()
-	
-	CreateHand()
+
 	
 	handArray.clear()
 	deckArray.clear()

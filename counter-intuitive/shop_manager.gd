@@ -12,13 +12,13 @@ var realTilesArray : Array
 @export var visualTileSlotScene : PackedScene
 
 @export var maxTilesButton : Button
-var maxTilesPrice = 8
+var maxTilesPrice : int = 8
 
 @export var handSizeButton : Button
-var handSizePrice = 6
+var handSizePrice : int = 6
 
 @export var roundsPerStageButton : Button
-var roundsPerStagePrice = 10
+var roundsPerStagePrice : int = 10
 
 func _init() -> void:
 	Globals.shopManager = self
@@ -40,7 +40,8 @@ func CreateShopTile(tileName : String):
 	shopTile.realTile = realTile
 	shopTile.visualTile = visualTile
 	
-	realTile.reparent(realTilesNode)
+	realTile.reparent(realTilesNode, false)
+	print(realTile.get_parent())
 	realTilesArray.append(realTile)
 	
 	visualTile.showPrice = true
@@ -86,22 +87,32 @@ func AttemptToBuyMaxTiles():
 	if (Globals.main.tokens >= maxTilesPrice):
 		Globals.main.tokens -= maxTilesPrice
 		Globals.main.maxTilesPerRound += 1
+		IncreaseUpgradePrices()
+		maxTilesPrice *= 1.2
 		
 func AttemptToBuyHandSize():
 	if (Globals.main.tokens >= handSizePrice):
 		Globals.main.tokens -= handSizePrice
 		Globals.main.handSize += 1
+		IncreaseUpgradePrices()
+		handSizePrice *= 1.2
 		
 func AttemptToBuyRoundsPerStage():
 	if (Globals.main.tokens >= roundsPerStagePrice):
 		Globals.main.tokens -= roundsPerStagePrice
 		Globals.main.maxRounds += 1
+		IncreaseUpgradePrices()
+		roundsPerStagePrice *= 1.2
 		
 func UpdateButtonText():
 	maxTilesButton.text = "+ Max Tiles ($" + str(maxTilesPrice) + ")"
 	handSizeButton.text = "+ Hand Size ($" + str(handSizePrice) + ")"
 	roundsPerStageButton.text = "+ Rounds Per Stage ($" + str(roundsPerStagePrice) + ")"
 	
+func IncreaseUpgradePrices():
+	maxTilesPrice *= 1.2
+	handSizePrice *= 1.2
+	roundsPerStagePrice *= 1.2
 	
 	
 	

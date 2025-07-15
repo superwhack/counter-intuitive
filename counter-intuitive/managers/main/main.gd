@@ -60,7 +60,11 @@ var tokens : int:
 		tokens = value
 		uiManager.UpdateTokens()
 		
-var handSize : int
+var maxHandSize : int = 20
+var handSize : int:
+	set(value):
+		handSize = min(value, maxHandSize)
+		
 
 var triggerArray : Array
 var triggerIndex : int

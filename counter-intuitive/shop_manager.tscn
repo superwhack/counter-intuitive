@@ -4,14 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://sv672axhrs2a" path="res://shop_tile.tscn" id="2_qhy2r"]
 [ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="3_8t7m5"]
 
-[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
+[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "realTilesNode", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
 script = ExtResource("1_3rk3w")
 shopTilesContainer = NodePath("HFlowContainer")
+realTilesNode = NodePath("Real Tiles")
 shopTileScene = ExtResource("2_qhy2r")
 visualTileSlotScene = ExtResource("3_8t7m5")
-maxTilesButton = NodePath("Max Tiles Button")
-handSizeButton = NodePath("Hand Size Button")
-roundsPerStageButton = NodePath("Rounds Per Stage Button")
+maxTilesButton = NodePath("Control/HFlowContainer2/Max Tiles Button")
+handSizeButton = NodePath("Control/HFlowContainer2/Hand Size Button")
+roundsPerStageButton = NodePath("Control/HFlowContainer2/Rounds Per Stage Button")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(600, 100)
@@ -22,6 +23,7 @@ offset_bottom = 387.0
 alignment = 1
 
 [node name="Real Tiles" type="Node2D" parent="."]
+position = Vector2(589, 818)
 
 [node name="Leave Button" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 100)
@@ -31,31 +33,50 @@ offset_right = 696.0
 offset_bottom = 715.0
 text = "Leave Shop"
 
-[node name="Max Tiles Button" type="Button" parent="."]
-custom_minimum_size = Vector2(100, 50)
-offset_left = 1169.0
-offset_top = 535.0
-offset_right = 1269.0
-offset_bottom = 585.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1062.0
+offset_top = 436.0
+offset_right = 1280.0
+offset_bottom = 718.0
+
+[node name="HFlowContainer2" type="VFlowContainer" parent="Control"]
+custom_minimum_size = Vector2(150, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/v_separation = 18
+alignment = 1
+
+[node name="Hand Size Button" type="Button" parent="Control/HFlowContainer2"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
 text = "+ Max Tiles"
 
-[node name="Hand Size Button" type="Button" parent="."]
-custom_minimum_size = Vector2(100, 50)
-offset_left = 1167.0
-offset_top = 598.0
-offset_right = 1267.0
-offset_bottom = 648.0
+[node name="Rounds Per Stage Button" type="Button" parent="Control/HFlowContainer2"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
 text = "+ Max Tiles"
 
-[node name="Rounds Per Stage Button" type="Button" parent="."]
-custom_minimum_size = Vector2(100, 50)
-offset_left = 1170.0
-offset_top = 658.0
-offset_right = 1270.0
-offset_bottom = 708.0
+[node name="Max Tiles Button" type="Button" parent="Control/HFlowContainer2"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
 text = "+ Max Tiles"
 
 [connection signal="pressed" from="Leave Button" to="." method="_on_leave_button_pressed"]
-[connection signal="pressed" from="Max Tiles Button" to="." method="AttemptToBuyMaxTiles"]
-[connection signal="pressed" from="Hand Size Button" to="." method="AttemptToBuyHandSize"]
-[connection signal="pressed" from="Rounds Per Stage Button" to="." method="AttemptToBuyRoundsPerStage"]
+[connection signal="pressed" from="Control/HFlowContainer2/Hand Size Button" to="." method="AttemptToBuyHandSize"]
+[connection signal="pressed" from="Control/HFlowContainer2/Rounds Per Stage Button" to="." method="AttemptToBuyRoundsPerStage"]
+[connection signal="pressed" from="Control/HFlowContainer2/Max Tiles Button" to="." method="AttemptToBuyMaxTiles"]
