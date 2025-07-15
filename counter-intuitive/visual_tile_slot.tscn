@@ -16,6 +16,8 @@ mouse_filter = 2
 script = ExtResource("1_84sn1")
 
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 z_index = -1
+texture_filter = 1
 layout_mode = 2
 mouse_filter = 2

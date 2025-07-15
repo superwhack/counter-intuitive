@@ -55,6 +55,7 @@ func AddShopTileToNewSlot(shopTile : ShopTile):
 	var newSlot = visualTileSlotScene.instantiate()
 	shopTilesContainer.add_child(newSlot)
 	newSlot.add_child(shopTile)
+	shopTile.position = newSlot.size / 2
 	
 func ResetShop():
 	for shopTile in shopTilesContainer.get_children():
@@ -105,7 +106,7 @@ func AttemptToBuyRoundsPerStage():
 		roundsPerStagePrice *= 1.2
 		
 func UpdateButtonText():
-	maxTilesButton.text = "+ Max Tiles ($" + str(maxTilesPrice) + ")"
+	maxTilesButton.text = "+ Tiles Per Round ($" + str(maxTilesPrice) + ")"
 	handSizeButton.text = "+ Hand Size ($" + str(handSizePrice) + ")"
 	roundsPerStageButton.text = "+ Rounds Per Stage ($" + str(roundsPerStagePrice) + ")"
 	

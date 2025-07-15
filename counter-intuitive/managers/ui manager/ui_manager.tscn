@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://buttons/play button/play_button.tscn" id="2_iku3t"]
 [ext_resource type="FontFile" uid="uid://yfwr8l0cg8ky" path="res://ui_basic_font.tres" id="3_qdyrm"]
 
-[node name="UI Manager" type="Control" node_paths=PackedStringArray("scoreNumberLabel", "roundsNumberLabel", "tokensNumberLabel", "goalNumberLabel", "tilesNumberLabel", "playButton", "score", "goal", "tokens", "tiles", "rounds")]
+[node name="UI Manager" type="Control" node_paths=PackedStringArray("scoreNumberLabel", "roundsNumberLabel", "tokensNumberLabel", "goalNumberLabel", "tilesNumberLabel", "stageNumberLabel", "playButton", "score", "goal", "tokens", "tiles", "rounds", "stage")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rwj1f")
@@ -13,12 +13,14 @@ roundsNumberLabel = NodePath("TRC Container/Rounds/Round Numerical Label")
 tokensNumberLabel = NodePath("TLC Container/Tokens/Tokens Numerical Label")
 goalNumberLabel = NodePath("TLC Container/Goal/Goal Numerical Label")
 tilesNumberLabel = NodePath("TLC Container/Tiles/Tiles Numerical Label")
+stageNumberLabel = NodePath("TRC Container/Stage/Stage Numerical Label")
 playButton = NodePath("Play Button")
 score = NodePath("TLC Container/Score")
 goal = NodePath("TLC Container/Goal")
 tokens = NodePath("TLC Container/Tokens")
 tiles = NodePath("TLC Container/Tiles")
 rounds = NodePath("TRC Container/Rounds")
+stage = NodePath("TRC Container/Stage")
 
 [node name="Play Button" parent="." instance=ExtResource("2_iku3t")]
 layout_mode = 1
@@ -31,10 +33,12 @@ offset_bottom = 704.0
 layout_mode = 0
 offset_right = 376.0
 offset_bottom = 446.0
+mouse_filter = 2
 
 [node name="Score" type="HFlowContainer" parent="TLC Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Score Label" type="Label" parent="TLC Container/Score"]
 layout_mode = 2
@@ -60,6 +64,7 @@ text = "0"
 [node name="Goal" type="HFlowContainer" parent="TLC Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Goal Label" type="Label" parent="TLC Container/Goal"]
 layout_mode = 2
@@ -85,6 +90,7 @@ text = "0"
 [node name="Tokens" type="HFlowContainer" parent="TLC Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Tokens Label" type="Label" parent="TLC Container/Tokens"]
 layout_mode = 2
@@ -111,6 +117,7 @@ text = "0
 [node name="Tiles" type="HFlowContainer" parent="TLC Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Tiles Label" type="Label" parent="TLC Container/Tiles"]
 layout_mode = 2
@@ -147,10 +154,12 @@ offset_right = 1281.0
 offset_bottom = 284.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Rounds" type="HFlowContainer" parent="TRC Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+mouse_filter = 2
 alignment = 2
 
 [node name="Rounds Label" type="Label" parent="TRC Container/Rounds"]
@@ -164,6 +173,33 @@ theme_override_font_sizes/font_size = 45
 text = "Rounds: "
 
 [node name="Round Numerical Label" type="Label" parent="TRC Container/Rounds"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_qdyrm")
+theme_override_font_sizes/font_size = 45
+text = "0"
+
+[node name="Stage" type="HFlowContainer" parent="TRC Container"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Stages Label" type="Label" parent="TRC Container/Stage"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_qdyrm")
+theme_override_font_sizes/font_size = 45
+text = "Stage: "
+
+[node name="Stage Numerical Label" type="Label" parent="TRC Container/Stage"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

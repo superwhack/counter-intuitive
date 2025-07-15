@@ -48,7 +48,10 @@ var score : int:
 		score = value
 		uiManager.UpdateScore()
 
-var currentStage : int
+var currentStage : int:
+	set(value):
+		currentStage = value
+		uiManager.UpdateStage()
 
 var goal : int:
 	set(value): 
@@ -122,9 +125,7 @@ func StartRun():
 	UpdateFromGlobals()
 	ResetRun()
 	CreateStartingDeck()
-	ShowScreen(gameplayScreen)
-	
-	StartStage()
+	MoveToShop()
 	
 		
 func ResetRound():
@@ -173,7 +174,7 @@ func ResetRun():
 	maxRounds = 3
 	roundsRemaining = maxRounds
 	
-	maxTilesPerRound = 4
+	maxTilesPerRound = 3
 	tilesRemaining = maxTilesPerRound
 	
 	tokens = 0
@@ -183,6 +184,8 @@ func ResetRun():
 	goal = 30
 	
 	tilesMovedRun = 0
+	
+	currentStage = 1
 	
 	tileManager.ResetRun()
 	board.ResetRun()
@@ -208,9 +211,7 @@ func PullNextTrigger():
 			if (score >= goal):
 				# Gain Money
 				tokens += (int)(10 * (score - goal) / goal)
-				goal *= 1.4
-				goal = (int)(goal)
-				currentStage += 1
+				ProgressStage()
 				MoveToShop()
 			else:
 				gameOverNodeTemp.visible = true
@@ -266,12 +267,15 @@ func HideAllScreens():
 func CreateStartingDeck():
 	match selectedStartingDeck:
 		Reference.STARTING_DECKS.WhiteDeck:
+			tokens = 10
 			for i in 12:
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 		Reference.STARTING_DECKS.TestDeck:
 			for i in 20:
 				tokens += 10
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
+			for tileName in Reference.CommonTiles:
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes[tileName])
 				
 
 func GameOver():
@@ -308,3 +312,7 @@ func MoveToBoard():
 	ShowScreen(gameplayScreen)
 	StartStage()
 	
+func ProgressStage():
+		goal *= 1.4
+		goal = (int)(goal)
+		currentStage += 1

@@ -45,6 +45,15 @@ func Associate(tile : Tile):
 	associatedTile = tile;
 	sprite.texture = associatedTile.sprite.texture
 	
+	tooltip.queue_free()
+	tooltip = associatedTile.tooltip.duplicate()
+	add_child(tooltip)
+	for child in tooltip.get_children():
+		if child is Label:
+			tooltipLabel = child
+		else:
+			tooltipLabel = null
+	
 
 #func OnBoardTrigger():
 	#print("I am a tile named " + name + " and I was triggered!")

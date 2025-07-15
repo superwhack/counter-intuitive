@@ -43,5 +43,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Gray Tile\nScore " + str(score) + " point(s). Then, increase that amount by 3 for this stage."
+	description = "Gray Tile\nScore " + str(score) + " points. Then, increase that amount by 3 for this stage."
 	tooltipLabel.text = description

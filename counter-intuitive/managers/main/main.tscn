@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b1cdu4upc0o56" path="res://managers/ui manager/ui_manager.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b5wk35ymjims5" path="res://visual_decks_manager.tscn" id="6_e2la8"]
 [ext_resource type="Texture2D" uid="uid://6dvgxhys2vj6" path="res://assets/title.png" id="6_vtaec"]
-[ext_resource type="Texture2D" uid="uid://cdwegcmfap177" path="res://assets/Untitled.png" id="7_fqp6p"]
 [ext_resource type="PackedScene" uid="uid://daw4vxupxppab" path="res://shop_manager.tscn" id="8_1ueur"]
+[ext_resource type="Texture2D" uid="uid://c1i6rprrofunr" path="res://assets/gameover.png" id="9_1ueur"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("gameplayScreen", "mainMenuScreen", "pauseScreen", "shopScreen", "background", "startRunButton", "gameOverNodeTemp")]
 script = ExtResource("1_0wfyh")
@@ -21,7 +21,7 @@ startRunButton = NodePath("Main Menu Screen/Start Run Button")
 gameOverNodeTemp = NodePath("GameOverNode(TEMP)")
 
 [node name="Background" parent="." instance=ExtResource("5_b74er")]
-z_index = -1
+z_index = -20
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -57,7 +57,6 @@ offset_right = 901.0
 offset_bottom = 138.0
 
 [node name="Main Menu Screen" type="Node2D" parent="."]
-visible = false
 
 [node name="Title" type="TextureRect" parent="Main Menu Screen"]
 texture_filter = 1
@@ -78,10 +77,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 460.0
-offset_top = 613.0
-offset_right = 740.0
-offset_bottom = 698.0
+offset_left = 500.0
+offset_top = 600.0
+offset_right = 780.0
+offset_bottom = 700.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Start Run!"
@@ -98,6 +97,8 @@ visible = false
 position = Vector2(613, 335)
 
 [node name="Sprite2D" type="Sprite2D" parent="GameOverNode(TEMP)"]
-texture = ExtResource("7_fqp6p")
+texture_filter = 1
+scale = Vector2(3.49765, 3.49765)
+texture = ExtResource("9_1ueur")
 
 [connection signal="pressed" from="Main Menu Screen/Start Run Button" to="." method="StartRun"]
