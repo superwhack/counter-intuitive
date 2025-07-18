@@ -6,6 +6,7 @@ var board : Board
 var tileManager : TileManager
 var visualDecksManager : VisualDecksManager
 var shopManager : ShopManager
+var trinketManager : TrinketManager
 
 @export var gameplayScreen : Node2D
 @export var mainMenuScreen : Node2D
@@ -80,6 +81,7 @@ var tilesMovedRun
 
 @export var gameOverNodeTemp : Node2D
 
+signal TileTriggersAdded
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
 	Globals.main = self
@@ -97,7 +99,7 @@ func _ready() -> void:
 	ShowScreen(mainMenuScreen)
 	
 	# TEMPORARY!
-	selectedStartingDeck = Reference.STARTING_DECKS.WhiteDeck
+	selectedStartingDeck = Reference.STARTING_DECKS.TestDeck
 	
 	# CONNECTING SIGNALS
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
@@ -189,7 +191,7 @@ func ResetRun():
 	
 	tileManager.ResetRun()
 	board.ResetRun()
-	
+	shopManager.ResetShop()
 	ResetStage()
 	# TEMP!
 	gameOverNodeTemp.visible = false
@@ -201,18 +203,17 @@ func UpdateFromGlobals():
 	tileManager = Globals.tileManager
 	visualDecksManager = Globals.visualDecksManager
 	shopManager = Globals.shopManager
+	trinketManager = Globals.trinketManager
 	
 func PullNextTrigger():
+	# Are we at the end of the sequence?
 	if (triggerIndex == triggerArray.size()):
+		print(board.CheckFullRows())
+		
 		# check for loss
 		if (roundsRemaining == 0):
-			print(score)
-			print(goal)
 			if (score >= goal):
-				# Gain Money
-				tokens += (int)(10 * (score - goal) / goal)
-				ProgressStage()
-				MoveToShop()
+				EndStage()
 			else:
 				gameOverNodeTemp.visible = true
 				get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
@@ -232,6 +233,7 @@ func StartTriggerSequence():
 	for tile in board.flatBoardTilesArray:
 		triggerArray.append(tile.CreateCallable())
 	
+	TileTriggersAdded.emit()
 	PullNextTrigger()
 	
 func RemoveCallableTriggerFromTile(tile : Tile):
@@ -271,11 +273,15 @@ func CreateStartingDeck():
 			for i in 12:
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
 		Reference.STARTING_DECKS.TestDeck:
-			for i in 20:
-				tokens += 10
+			tokens = 10
+			#for tileName in Reference.CommonTiles:
+				#tileManager.CreatePlayTileToDeck(Reference.TileScenes[tileName])
+			for i in 15:
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes[Reference.CommonTiles.pick_random()])
+				
+			for i in 20: 
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
-			for tileName in Reference.CommonTiles:
-				tileManager.CreatePlayTileToDeck(Reference.TileScenes[tileName])
+				
 				
 
 func GameOver():
@@ -297,6 +303,7 @@ func GetLastTileTrigger():
 	
 func OnScoreSignal(source, value): 
 	score += value
+	print(source)
 	
 func OnTileMovedSignal(tile, source, direction):
 	tilesMovedRound += 1
@@ -309,6 +316,7 @@ func MoveToShop():
 	shopManager.StartShop()
 	
 func MoveToBoard():
+	shopManager.ResetShop()
 	ShowScreen(gameplayScreen)
 	StartStage()
 	
@@ -316,3 +324,9 @@ func ProgressStage():
 		goal *= 1.4
 		goal = (int)(goal)
 		currentStage += 1
+
+func EndStage():
+		# Gain Money
+	tokens += 10 + (int)(10 * (score - goal) / goal)
+	ProgressStage()
+	MoveToShop()

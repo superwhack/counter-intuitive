@@ -30,13 +30,16 @@ cache/0/20/0/scale = 1.0
 [node name="Tile Tooltip" type="Node2D"]
 z_index = 6
 z_as_relative = false
+texture_filter = 1
 
 [node name="Tooltip Background" type="Sprite2D" parent="."]
 modulate = Color(0.839216, 0.764706, 0.933333, 0.909804)
+texture_filter = 1
 scale = Vector2(300, 100)
 texture = ExtResource("1_bohve")
 
 [node name="Tooltip Text" type="Label" parent="."]
+texture_filter = 1
 custom_minimum_size = Vector2(300, 100)
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,3 +61,4 @@ text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+metadata/_edit_use_anchors_ = true

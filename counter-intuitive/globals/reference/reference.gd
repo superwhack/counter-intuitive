@@ -10,6 +10,10 @@ extends Node2D
 @export var PurpleTile : PackedScene
 @export var BlueTile : PackedScene
 
+@export var D10 : PackedScene
+@export var Spring : PackedScene
+@export var Medal : PackedScene
+@export var FriendshipBracelet : PackedScene
 
 enum COLLISION_LAYERS {
 	Tiles,
@@ -59,6 +63,12 @@ var TileScenes : Dictionary = {
 	"BlueTile" : BlueTile
 }
 
+var TrinketScenes : Dictionary =  {
+	"D10" : D10,
+	"Spring" : Spring,
+	"Medal" : Medal,
+	"FriendshipBracelet" : FriendshipBracelet
+}
 var CommonTiles : Array = [
 	"WhiteTile",
 	"BlackTile",
@@ -71,6 +81,12 @@ var CommonTiles : Array = [
 	#"PurpleTile",
 	"BlueTile"]
 	
+var CommonTrinkets : Array = [
+	"D10",
+	"Medal",
+	"Spring",
+	"FriendshipBracelet"
+]
 var handSlotSize : Vector2
 var boardSlotSize : Vector2
 
@@ -90,6 +106,14 @@ func _ready() -> void:
 	TileScenes["RedTile"] = RedTile
 	TileScenes["PurpleTile"] = PurpleTile
 	TileScenes["BlueTile"] = BlueTile
+	
+	
+	TrinketScenes["D10"] = D10
+	TrinketScenes["Spring"] = Spring
+	TrinketScenes["Medal"] = Medal
+	TrinketScenes["FriendshipBracelet"] = FriendshipBracelet
+	
+	
 	pass # Replace with function body.
 
 func GetCommonTileName():

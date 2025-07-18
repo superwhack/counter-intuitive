@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8av6svstjroi"]
+[gd_scene load_steps=16 format=3 uid="uid://c8av6svstjroi"]
 
 [ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
 [ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_vhla3"]
@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://bry6igdvbhwry" path="res://tiles/white tile/redTile.tscn" id="9_iealt"]
 [ext_resource type="PackedScene" uid="uid://6nfe3v7uk2xx" path="res://tiles/white tile/purpleTile.tscn" id="9_vitdi"]
 [ext_resource type="PackedScene" uid="uid://bmq4t3b8u10w0" path="res://tiles/green tile/blueTile.tscn" id="10_cks7i"]
+[ext_resource type="PackedScene" uid="uid://bka51ypojxw63" path="res://d10_trinket.tscn" id="12_6jqix"]
+[ext_resource type="PackedScene" uid="uid://djguf0uyrrkst" path="res://springTrinket.tscn" id="13_76xer"]
+[ext_resource type="PackedScene" uid="uid://cc3rqudb0n55s" path="res://medal_trinket.tscn" id="14_q8us0"]
+[ext_resource type="PackedScene" uid="uid://buy1hqs3ioxs1" path="res://friendship_bracelet_trinket.tscn" id="15_1ajpd"]
 
 [node name="Reference" type="Node2D"]
 script = ExtResource("1_rdp6k")
@@ -24,3 +28,7 @@ PinkTile = ExtResource("8_0op2d")
 RedTile = ExtResource("9_iealt")
 PurpleTile = ExtResource("9_vitdi")
 BlueTile = ExtResource("10_cks7i")
+D10 = ExtResource("12_6jqix")
+Spring = ExtResource("13_76xer")
+Medal = ExtResource("14_q8us0")
+FriendshipBracelet = ExtResource("15_1ajpd")

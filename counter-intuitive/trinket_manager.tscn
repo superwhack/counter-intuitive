@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq7goqum82ew3"]
+
+[ext_resource type="Script" uid="uid://d2uhoreyjsinv" path="res://trinket_manager.gd" id="1_fuosk"]
+[ext_resource type="PackedScene" uid="uid://4vtoc8ixnn6n" path="res://trinket_slot.tscn" id="2_as16o"]
+
+[node name="TrinketManager" type="Node2D" node_paths=PackedStringArray("trinketsNode")]
+script = ExtResource("1_fuosk")
+trinketsNode = NodePath("trinketsNode(TEMP)")
+trinketSlotScene = ExtResource("2_as16o")
+
+[node name="trinketsNode(TEMP)" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(900, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 195.0
+offset_top = 14.0
+offset_right = 1095.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -211,6 +211,15 @@ func ChangeSlot(tile : Tile, boardSlot : BoardSlot):
 		return true
 	else:
 		return false
-		print("slot change failed")
+		
+func CheckFullRows():
+	var results = []
+	for i in numRows:
+		results.append(true)
+		for spot in boardTilesArray[i]:
+			if (spot == null):
+				results[i] = false
+				
+	return results
 
 		

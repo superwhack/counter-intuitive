@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm3r8xd2xuamh"]
+
+[ext_resource type="Script" uid="uid://8hiokehfplh7" path="res://trinket.gd" id="1_plqks"]
+[ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="2_iocp8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iocp8"]
+size = Vector2(128, 128)
+
+[node name="Trinket" type="Area2D" node_paths=PackedStringArray("tooltip", "tooltipLabel", "sprite", "priceLabel")]
+script = ExtResource("1_plqks")
+tooltip = NodePath("Tile Tooltip")
+tooltipLabel = NodePath("Tile Tooltip/Tooltip Text")
+sprite = NodePath("Sprite2D")
+priceLabel = NodePath("Price")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Tile Tooltip" parent="." instance=ExtResource("2_iocp8")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iocp8")
+
+[node name="Price" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 35.0
+offset_right = 20.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 40
+text = "1"
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="Tile Tooltip"]

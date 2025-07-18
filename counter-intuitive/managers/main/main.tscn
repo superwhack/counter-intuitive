@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpptyml8my5te"]
+[gd_scene load_steps=14 format=3 uid="uid://dpptyml8my5te"]
 
 [ext_resource type="Script" uid="uid://clrfh61lutycf" path="res://managers/main/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dge4f8gmo3c60" path="res://board/board/board.tscn" id="3_sugp2"]
@@ -7,8 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://b1cdu4upc0o56" path="res://managers/ui manager/ui_manager.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b5wk35ymjims5" path="res://visual_decks_manager.tscn" id="6_e2la8"]
 [ext_resource type="Texture2D" uid="uid://6dvgxhys2vj6" path="res://assets/title.png" id="6_vtaec"]
+[ext_resource type="PackedScene" uid="uid://dfhdt4wt6d4ih" path="res://score_number_manager.tscn" id="7_c5oqh"]
+[ext_resource type="PackedScene" uid="uid://bq7goqum82ew3" path="res://trinket_manager.tscn" id="8_0himi"]
 [ext_resource type="PackedScene" uid="uid://daw4vxupxppab" path="res://shop_manager.tscn" id="8_1ueur"]
 [ext_resource type="Texture2D" uid="uid://c1i6rprrofunr" path="res://assets/gameover.png" id="9_1ueur"]
+[ext_resource type="AudioStream" uid="uid://umcdx3hx01x" path="res://assets/nothingon.wav" id="12_3svvu"]
+[ext_resource type="Script" uid="uid://deo0edm507jhq" path="res://managers/main/musicloopertemp.gd" id="13_iwc3o"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("gameplayScreen", "mainMenuScreen", "pauseScreen", "shopScreen", "background", "startRunButton", "gameOverNodeTemp")]
 script = ExtResource("1_0wfyh")
@@ -56,6 +60,10 @@ offset_top = 138.0
 offset_right = 901.0
 offset_bottom = 138.0
 
+[node name="ScoreNumberManager" parent="Gameplay Screen" instance=ExtResource("7_c5oqh")]
+
+[node name="TrinketManager" parent="Gameplay Screen" instance=ExtResource("8_0himi")]
+
 [node name="Main Menu Screen" type="Node2D" parent="."]
 
 [node name="Title" type="TextureRect" parent="Main Menu Screen"]
@@ -101,4 +109,11 @@ texture_filter = 1
 scale = Vector2(3.49765, 3.49765)
 texture = ExtResource("9_1ueur")
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_3svvu")
+volume_db = -6.646
+autoplay = true
+script = ExtResource("13_iwc3o")
+
 [connection signal="pressed" from="Main Menu Screen/Start Run Button" to="." method="StartRun"]
+[connection signal="finished" from="Music" to="Music" method="_on_finished"]

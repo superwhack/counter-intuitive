@@ -11,7 +11,6 @@ func _init() -> void:
 	pass
 func _ready() -> void:
 	Globals.visualDecksManager = self
-	print(Globals.visualDecksManager)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

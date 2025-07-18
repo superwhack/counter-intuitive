@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 # I dont really understand this. Weird input script.
 #func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	#if (event is InputEventMouseButton) :
-		#print("hi")
+		#s("hi")
 	##
 
 # what do do when the tile is picked up

@@ -42,7 +42,6 @@ func ReparentToHandSlot(tile : Node2D, slot : Control):
 	tile.desiredPosition = Reference.handSlotSize / 2
 	
 func ReparentToLastOpenSlot(tile : Node2D):
-	print("wenttolastopen")
 	ReparentToHandSlot(tile, handSlots[lastOpenIndex])
 	lastOpenIndex += 1
 	
@@ -96,7 +95,6 @@ func ReparentTileFromLocation(tile):
 	match(tile.location):
 		Reference.TILE_LOCATIONS.hand:
 			ReparentToLastOpenSlot(tile)
-			print(lastOpenIndex)
 		Reference.TILE_LOCATIONS.deck:
 			tile.reparent(deckNode)
 		Reference.TILE_LOCATIONS.discard:
@@ -230,7 +228,6 @@ func MoveTileInRandomValidDirection(tile : Tile):
 		if (returnValue[0]):
 			return returnValue
 		else:
-			print("directional failure")
 			directions.erase(newDirection)
 	return [false, -1]
 			
@@ -244,7 +241,6 @@ func MoveTileInValidRandomCardinalDirection(tile : Tile):
 		if (returnValue[0]):
 			return returnValue
 		else:
-			print("directional failure")
 			directions.erase(newDirection)
 	return [false, -1]
 	
@@ -257,7 +253,6 @@ func MoveTileInValidRandomOrdinalDirection(tile : Tile):
 		if (returnValue[0]):
 			return returnValue
 		else:
-			print("directional failure")
 			directions.erase(newDirection)
 	return [false, -1]
 

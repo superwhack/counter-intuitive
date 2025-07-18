@@ -1,16 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://daw4vxupxppab"]
+[gd_scene load_steps=7 format=3 uid="uid://daw4vxupxppab"]
 
 [ext_resource type="Script" uid="uid://bq5kwctx12xwy" path="res://shop_manager.gd" id="1_3rk3w"]
 [ext_resource type="PackedScene" uid="uid://sv672axhrs2a" path="res://shop_tile.tscn" id="2_qhy2r"]
 [ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="3_8t7m5"]
+[ext_resource type="PackedScene" uid="uid://4vtoc8ixnn6n" path="res://trinket_slot.tscn" id="3_dfcim"]
+[ext_resource type="PackedScene" uid="uid://6gjlbr1rfpk5" path="res://shop_trinket.tscn" id="3_ilwm6"]
 [ext_resource type="Texture2D" uid="uid://b5emarg61ko06" path="res://assets/shopslab.png" id="4_8t7m5"]
 
-[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "realTilesNode", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
+[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "shopTrinketsContainer", "realTilesNode", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
 script = ExtResource("1_3rk3w")
 shopTilesContainer = NodePath("HFlowContainer")
+shopTrinketsContainer = NodePath("trinketsNode(TEMP)")
 realTilesNode = NodePath("Real Tiles")
 shopTileScene = ExtResource("2_qhy2r")
+shopTrinketScene = ExtResource("3_ilwm6")
 visualTileSlotScene = ExtResource("3_8t7m5")
+trinketSlotScene = ExtResource("3_dfcim")
 maxTilesButton = NodePath("Control/HFlowContainer2/Max Tiles Button")
 handSizeButton = NodePath("Control/HFlowContainer2/Hand Size Button")
 roundsPerStageButton = NodePath("Control/HFlowContainer2/Rounds Per Stage Button")
@@ -89,6 +94,22 @@ position = Vector2(1150, 570)
 rotation = 1.5708
 scale = Vector2(0.408247, 1.28)
 texture = ExtResource("4_8t7m5")
+
+[node name="trinketsNode(TEMP)" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(900, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 195.0
+offset_top = 14.0
+offset_right = 1095.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
 
 [connection signal="pressed" from="Leave Button" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="Control/HFlowContainer2/Hand Size Button" to="." method="AttemptToBuyHandSize"]

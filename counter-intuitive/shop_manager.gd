@@ -4,12 +4,16 @@ class_name ShopManager
 @export var shopTilesContainer : Control
 var shopTilesArray : Array
 
+@export var shopTrinketsContainer : Control
+var shopTrinketsArray : Array = []
+
 @export var realTilesNode : Node2D
 var realTilesArray : Array
 
 @export var shopTileScene : PackedScene
-
+@export var shopTrinketScene : PackedScene
 @export var visualTileSlotScene : PackedScene
+@export var trinketSlotScene : PackedScene
 
 @export var maxTilesButton : Button
 var maxTilesPrice : int = 8
@@ -41,13 +45,12 @@ func CreateShopTile(tileName : String):
 	shopTile.visualTile = visualTile
 	
 	realTile.reparent(realTilesNode, false)
-	print(realTile.get_parent())
 	realTilesArray.append(realTile)
 	
 	visualTile.showPrice = true
 	visualTile.reparent(shopTile)
 	
-	shopTile.shopTileManager = self
+	shopTile.shopManager = self
 	
 	AddShopTileToNewSlot(shopTile)
 	
@@ -57,14 +60,48 @@ func AddShopTileToNewSlot(shopTile : ShopTile):
 	newSlot.add_child(shopTile)
 	shopTile.position = newSlot.size / 2
 	
+func CreateShopTrinket(trinketName : String):
+	var trinket = Globals.trinketManager.CreateTrinket(trinketName)
+	var shopTrinket = shopTrinketScene.instantiate()
+	
+	shopTrinket.trinket = trinket
+	
+	shopTrinket.shopManager = self
+	
+	trinket.showPrice = true
+	
+	trinket.reparent(shopTrinket)
+	
+	shopTrinketsArray.append(shopTrinket)
+	
+	AddShopTrinketToNewSlot(shopTrinket)
+	
+func AddShopTrinketToNewSlot(shopTrinket : Node2D):
+	var newSlot = trinketSlotScene.instantiate()
+	shopTrinketsContainer.add_child(newSlot)
+	newSlot.add_child(shopTrinket)
+	shopTrinket.position = Vector2(64, 64)
+	
+func ResetRun():
+	maxTilesPrice = 8
+	handSizePrice = 6
+	roundsPerStagePrice = 10
+	
 func ResetShop():
 	for shopTile in shopTilesContainer.get_children():
 		shopTilesArray.erase(shopTile)
 		shopTile.queue_free()
-	
+		
+	for shopTrinket in shopTrinketsContainer.get_children():
+		shopTrinketsArray.erase(shopTrinket)
+		shopTrinket.queue_free()
+		
 func StartShop():
 	for i in 3:
 		CreateShopTile(Reference.GetCommonTileName())
+		
+	for i in 3:
+		CreateShopTrinket(Reference.CommonTrinkets.pick_random())
 	
 func AttemptToBuy(shopTile):
 	print("purchase attempted")
@@ -84,6 +121,20 @@ func AttemptToBuy(shopTile):
 	else:
 		print("FAILED!")
 
+func AttemptToBuyTrinket(shopTrinket):
+	if (Globals.main.tokens >= shopTrinket.trinket.price):
+		# deduct the money
+		Globals.main.tokens -= shopTrinket.trinket.price
+		#remove it from the array (so that the real tile doesnt get deleted i think)
+		shopTrinketsArray.erase(shopTrinket)
+		
+		# get rid of shop slot
+		shopTrinket.get_parent().queue_free()
+		
+		Globals.trinketManager.PutTrinketInPlay(shopTrinket.trinket)
+	else:
+		print("FAILED!")
+		
 func AttemptToBuyMaxTiles():
 	if (Globals.main.tokens >= maxTilesPrice):
 		Globals.main.tokens -= maxTilesPrice

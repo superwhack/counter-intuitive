@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://djguf0uyrrkst"]
+
+[ext_resource type="PackedScene" uid="uid://cm3r8xd2xuamh" path="res://trinket.tscn" id="1_2d8rm"]
+[ext_resource type="Script" uid="uid://ehpfv4ydd8xs" path="res://springTrinket.gd" id="2_tygxg"]
+[ext_resource type="Texture2D" uid="uid://ei12v26pandt" path="res://assets/spring.png" id="3_tygxg"]
+
+[node name="Trinket" instance=ExtResource("1_2d8rm")]
+script = ExtResource("2_tygxg")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_tygxg")
+
+[editable path="Tile Tooltip"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfhdt4wt6d4ih"]
+
+[ext_resource type="Script" uid="uid://dt57vsj78gkuh" path="res://score_number_manager.gd" id="1_7t1or"]
+[ext_resource type="PackedScene" uid="uid://dfqdqajxy75x1" path="res://score_number.tscn" id="2_80rim"]
+
+[node name="ScoreNumberManager" type="Node2D"]
+script = ExtResource("1_7t1or")
+scoreNumberScene = ExtResource("2_80rim")

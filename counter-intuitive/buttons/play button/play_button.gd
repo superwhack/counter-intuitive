@@ -14,4 +14,5 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	SignalBus.PlayButtonPressed.emit();
+	if (!Globals.board.locked && !Globals.main.tilesLocked):
+		SignalBus.PlayButtonPressed.emit();

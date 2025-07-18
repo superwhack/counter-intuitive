@@ -20,8 +20,8 @@ func _process(delta: float) -> void:
 		#debug_reset_stage()
 	#if (Input.is_action_just_pressed("debug_reset_run")):
 		#debug_reset_run()
-	#if (Input.is_action_just_pressed("debug_generic")):
-		#debug_generic()
+	if (Input.is_action_just_pressed("debug_generic")):
+		debug_generic()
 	pass
 #region Debug
 func _debug_print_arrays():
@@ -50,6 +50,7 @@ func debug_shuffle():
 	
 func debug_reset_round():
 	Globals.main.ResetRound()
+
 	
 func debug_reset_stage():
 	Globals.main.ResetStage()
@@ -61,3 +62,7 @@ func debug_reset_run():
 func debug_generic():
 	Globals.main.tokens += 10000
 	Globals.main.score += 10000
+	Globals.trinketManager.CreatePlayTrinket("Medal")
+	Globals.trinketManager.CreatePlayTrinket("D10")
+	Globals.trinketManager.CreatePlayTrinket("Spring")
+	Globals.trinketManager.CreatePlayTrinket("FriendshipBracelet")
