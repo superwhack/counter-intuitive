@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2uh2uwhhjicm"]
+
+[ext_resource type="PackedScene" uid="uid://cm3r8xd2xuamh" path="res://trinket.tscn" id="1_d0tw5"]
+[ext_resource type="Script" uid="uid://ci3fc8rqs1v8b" path="res://ruler_trinket.gd" id="2_lj42j"]
+[ext_resource type="Texture2D" uid="uid://c702jmp5g8x7e" path="res://assets/ruler.png" id="3_b3ra8"]
+
+[node name="Ruler Trinket" instance=ExtResource("1_d0tw5")]
+script = ExtResource("2_lj42j")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_b3ra8")
+
+[editable path="Tile Tooltip"]

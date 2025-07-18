@@ -50,5 +50,5 @@ func ResetStage():
 	pass
 	
 func UpdateTooltipLabel():
-	description = "Friendship Bracelet\nAt the end of each Round, gain 1 point for each of the most common Tile you own."
+	description = "Friendly Bracelet\nAt the end of each Round, gain 1 point for each of the most common Tile you own."
 	tooltipLabel.text = description

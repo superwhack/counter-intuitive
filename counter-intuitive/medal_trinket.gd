@@ -47,5 +47,5 @@ func ResetStage():
 	pass
 	
 func UpdateTooltipLabel():
-	description = "Medal\nAt the end of each Round, gain score equal to the highest score from a Tile this Round."
+	description = "First Place\nAt the end of each Round, gain score equal to the highest score from a Tile this Round."
 	tooltipLabel.text = description

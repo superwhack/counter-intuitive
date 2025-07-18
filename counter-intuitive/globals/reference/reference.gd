@@ -14,7 +14,7 @@ extends Node2D
 @export var Spring : PackedScene
 @export var Medal : PackedScene
 @export var FriendshipBracelet : PackedScene
-
+@export var Ruler : PackedScene
 enum COLLISION_LAYERS {
 	Tiles,
 	BoardSpaces
@@ -67,7 +67,8 @@ var TrinketScenes : Dictionary =  {
 	"D10" : D10,
 	"Spring" : Spring,
 	"Medal" : Medal,
-	"FriendshipBracelet" : FriendshipBracelet
+	"FriendshipBracelet" : FriendshipBracelet,
+	"Ruler" : Ruler
 }
 var CommonTiles : Array = [
 	"WhiteTile",
@@ -85,7 +86,8 @@ var CommonTrinkets : Array = [
 	"D10",
 	"Medal",
 	"Spring",
-	"FriendshipBracelet"
+	"FriendshipBracelet",
+	"Ruler"
 ]
 var handSlotSize : Vector2
 var boardSlotSize : Vector2
@@ -112,6 +114,7 @@ func _ready() -> void:
 	TrinketScenes["Spring"] = Spring
 	TrinketScenes["Medal"] = Medal
 	TrinketScenes["FriendshipBracelet"] = FriendshipBracelet
+	TrinketScenes["Ruler"] = Ruler
 	
 	
 	pass # Replace with function body.

@@ -42,5 +42,5 @@ func ResetStage():
 	pass
 	
 func UpdateTooltipLabel():
-	description = "Spring\nWhenever a Tile moves itself, this moves it again in a random direction."
+	description = "Worm Coil\nWhenever a Tile moves itself, this moves it again in a random direction."
 	tooltipLabel.text = description

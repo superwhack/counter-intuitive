@@ -209,7 +209,7 @@ func PullNextTrigger():
 	# Are we at the end of the sequence?
 	if (triggerIndex == triggerArray.size()):
 		print(board.CheckFullRows())
-		
+		print(board.CheckFullColumns())
 		# check for loss
 		if (roundsRemaining == 0):
 			if (score >= goal):

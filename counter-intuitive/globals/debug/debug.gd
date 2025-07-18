@@ -62,7 +62,3 @@ func debug_reset_run():
 func debug_generic():
 	Globals.main.tokens += 10000
 	Globals.main.score += 10000
-	Globals.trinketManager.CreatePlayTrinket("Medal")
-	Globals.trinketManager.CreatePlayTrinket("D10")
-	Globals.trinketManager.CreatePlayTrinket("Spring")
-	Globals.trinketManager.CreatePlayTrinket("FriendshipBracelet")

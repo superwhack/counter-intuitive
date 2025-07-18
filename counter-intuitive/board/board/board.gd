@@ -222,4 +222,13 @@ func CheckFullRows():
 				
 	return results
 
-		
+func CheckFullColumns():
+	var results = []
+	for i in numColumns:
+		results.append(true)
+		for j in 4:
+			var spot = boardTilesArray[j][i]
+			if (spot == null):
+				results[i] = false
+				
+	return results
