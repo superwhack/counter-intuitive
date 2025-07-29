@@ -10,4 +10,7 @@ script = ExtResource("2_mdeh5")
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_kco6a")
 
+[node name="Tooltip Background" parent="Tile Tooltip" index="0"]
+scale = Vector2(1.2, 1.2)
+
 [editable path="Tile Tooltip"]

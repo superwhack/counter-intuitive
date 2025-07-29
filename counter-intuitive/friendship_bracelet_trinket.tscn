@@ -10,4 +10,7 @@ script = ExtResource("2_wcgq1")
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_wcgq1")
 
+[node name="Tooltip Background" parent="Tile Tooltip" index="0"]
+modulate = Color(1, 1, 1, 0.984314)
+
 [editable path="Tile Tooltip"]

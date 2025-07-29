@@ -20,8 +20,8 @@ func _process(delta: float) -> void:
 		#debug_reset_stage()
 	#if (Input.is_action_just_pressed("debug_reset_run")):
 		#debug_reset_run()
-	if (Input.is_action_just_pressed("debug_generic")):
-		debug_generic()
+	#if (Input.is_action_just_pressed("debug_generic")):
+		#debug_generic()
 	pass
 #region Debug
 func _debug_print_arrays():

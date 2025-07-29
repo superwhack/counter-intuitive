@@ -9,6 +9,9 @@ var description : String
 var price : int = 5
 @export var priceLabel : Label
 var showPrice = false
+var sellable = false
+
+var trinketManager : TrinketManager
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HideTooltip()
@@ -21,6 +24,10 @@ func _process(delta: float) -> void:
 			ShowTooltip()
 		else:
 			HideTooltip()
+			
+		if (Input.is_action_pressed("sell")):
+			print("sell atte")
+			Sell()
 	else:
 		HideTooltip()
 		
@@ -64,4 +71,10 @@ func ShowPrice():
 	
 func HidePrice():
 	priceLabel.visible = false
+	
+func Sell():
+	if (!Globals.board.locked && !Globals.main.tilesLocked && sellable):
+		Globals.main.tokens += (int)(price / 2)
+		trinketManager.RemoveTrinket(self)
+
 	

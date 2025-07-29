@@ -15,13 +15,15 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
+	modulate = Color(0.6, 0.6, 0.6)
 	var returnValue = tileManager.MoveTileInRandomValidDirection(self)
 	if (returnValue[0]):
 		SignalBus.TileMoved.emit(self, self, returnValue[1])
+		await get_tree().create_timer(0.3).timeout
 		SignalBus.Score.emit(self, main.tilesMovedStage)
 	else:
 		print("Nowhere to go!")
-	modulate = Color(0.6, 0.6, 0.6)
+
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
 

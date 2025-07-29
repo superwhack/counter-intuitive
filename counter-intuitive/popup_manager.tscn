@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxht0y705rsd5"]
+
+[ext_resource type="Script" uid="uid://oe0edcsjff31" path="res://popup_manager.gd" id="1_cfydl"]
+
+[node name="Popup Manager" type="Node2D"]
+script = ExtResource("1_cfydl")

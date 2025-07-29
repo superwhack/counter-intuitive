@@ -38,5 +38,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "RedTile\nScore 2 points for each adjacent tile."
+	description = "Red Tile\nScore 2 points for each adjacent tile."
 	tooltipLabel.text = description

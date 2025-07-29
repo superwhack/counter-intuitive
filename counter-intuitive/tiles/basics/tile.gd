@@ -93,6 +93,7 @@ func _process(delta: float) -> void:
 
 # what do do when the tile is picked up
 func OnPickup():
+	Globals.globalAudioManager.PlaySound(Reference.SOUND_NAMES.pickup)
 	tileManager.heldTile = self
 	match(location):
 		Reference.TILE_LOCATIONS.hand:
@@ -111,6 +112,8 @@ func OnPickup():
 
 # what to do when the tile is released	
 func OnRelease():
+	print(Globals.globalAudioManager)
+	Globals.globalAudioManager.PlaySound(Reference.SOUND_NAMES.clink)
 	tileManager.heldTile = null
 	# reset the transparency & size
 	scale = Vector2(1.0, 1.0)

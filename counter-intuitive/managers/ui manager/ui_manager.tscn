@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0m15eb1d0srd" path="res://managers/ui manager/ui_manager.gd" id="1_rwj1f"]
 [ext_resource type="PackedScene" uid="uid://jamwp5wvybks" path="res://buttons/play button/play_button.tscn" id="2_iku3t"]
-[ext_resource type="FontFile" uid="uid://yfwr8l0cg8ky" path="res://ui_basic_font.tres" id="3_qdyrm"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="3_drutr"]
 
 [node name="UI Manager" type="Control" node_paths=PackedStringArray("scoreNumberLabel", "roundsNumberLabel", "tokensNumberLabel", "goalNumberLabel", "tilesNumberLabel", "stageNumberLabel", "playButton", "score", "goal", "tokens", "tiles", "rounds", "stage")]
 layout_mode = 3
@@ -28,6 +28,7 @@ offset_left = 1017.0
 offset_top = 601.0
 offset_right = 1261.0
 offset_bottom = 704.0
+theme = ExtResource("3_drutr")
 
 [node name="TLC Container" type="VFlowContainer" parent="."]
 layout_mode = 0
@@ -43,10 +44,10 @@ mouse_filter = 2
 [node name="Score Label" type="Label" parent="TLC Container/Score"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Score: "
 
@@ -54,10 +55,10 @@ text = "Score: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "0"
 
@@ -69,10 +70,10 @@ mouse_filter = 2
 [node name="Goal Label" type="Label" parent="TLC Container/Goal"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Goal: "
 
@@ -80,10 +81,10 @@ text = "Goal: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "0"
 
@@ -95,10 +96,10 @@ mouse_filter = 2
 [node name="Tokens Label" type="Label" parent="TLC Container/Tokens"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Tokens: "
 
@@ -106,13 +107,12 @@ text = "Tokens: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
-text = "0
-"
+text = "0"
 
 [node name="Tiles" type="HFlowContainer" parent="TLC Container"]
 custom_minimum_size = Vector2(300, 0)
@@ -122,10 +122,10 @@ mouse_filter = 2
 [node name="Tiles Label" type="Label" parent="TLC Container/Tiles"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Tiles: "
 
@@ -133,13 +133,12 @@ text = "Tiles: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
-text = "0
-"
+text = "0"
 
 [node name="TRC Container" type="VFlowContainer" parent="."]
 layout_mode = 1
@@ -165,10 +164,10 @@ alignment = 2
 [node name="Rounds Label" type="Label" parent="TRC Container/Rounds"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Rounds: "
 
@@ -176,10 +175,10 @@ text = "Rounds: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "0"
 
@@ -192,10 +191,10 @@ alignment = 2
 [node name="Stages Label" type="Label" parent="TRC Container/Stage"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "Stage: "
 
@@ -203,9 +202,9 @@ text = "Stage: "
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("3_drutr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("3_qdyrm")
 theme_override_font_sizes/font_size = 45
 text = "0"

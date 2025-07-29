@@ -144,6 +144,10 @@ func CreateVisualTile(tile : Tile):
 	visualTile.Associate(tile)
 	return visualTile
 	
+func RemoveTile(tile : Tile):
+	allTiles.erase(tile)
+	RemoveTileFromManagerArrays(tile)
+	tile.queue_free()
 	
 func ShuffleDiscardIntoDeck():
 	while(discardArray.size() > 0):

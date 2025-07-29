@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cqwtq5t3fl4j0"]
+
+[ext_resource type="FontFile" uid="uid://cadwyy00usqbg" path="res://assets/fonts/Baumans-Regular.ttf" id="1_lcc0y"]
+
+[resource]
+default_font = ExtResource("1_lcc0y")

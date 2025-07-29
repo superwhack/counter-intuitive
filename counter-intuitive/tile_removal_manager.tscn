@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://1qhydv7clgta"]
+
+[ext_resource type="Script" uid="uid://bplfmdvgsc0lj" path="res://tile_removal_manager.gd" id="1_vhj47"]
+[ext_resource type="PackedScene" uid="uid://oeso2n1twmxp" path="res://visual_tile_slot.tscn" id="2_qaqa2"]
+[ext_resource type="PackedScene" uid="uid://dttgakcywqhjo" path="res://removal_tile.tscn" id="3_bxcwi"]
+[ext_resource type="Texture2D" uid="uid://ximnwiocn56a" path="res://assets/pinkslabsquare.png" id="4_b6gc7"]
+
+[node name="TileRemovalManager" type="Node2D" node_paths=PackedStringArray("visualDeck", "scroll")]
+script = ExtResource("1_vhj47")
+visualDeck = NodePath("DeckScroll/Visual Deck")
+scroll = NodePath("DeckScroll")
+visualTileSlotScene = ExtResource("2_qaqa2")
+removalTileScene = ExtResource("3_bxcwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(640, 360)
+texture = ExtResource("4_b6gc7")
+
+[node name="DeckScroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 400)
+offset_left = 440.0
+offset_top = 160.0
+offset_right = 840.0
+offset_bottom = 560.0
+
+[node name="Visual Deck" type="HFlowContainer" parent="DeckScroll"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+last_wrap_alignment = 1

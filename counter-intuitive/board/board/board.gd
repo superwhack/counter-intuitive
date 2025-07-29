@@ -12,6 +12,9 @@ var flatBoardSlotsArray : Array
 var boardTilesArray : Array
 var flatBoardTilesArray : Array
 
+var rowAnchors : Array
+var columnAnchors : Array
+
 var numRows : int = 4
 var numColumns : int = 4
 
@@ -89,6 +92,8 @@ func CreateBoardSlots():
 		currentPos.x -= numRows * (spacing.x + boardSlotSize.x)
 		currentPos.y += spacing.y + boardSlotSize.y
 		
+	CreateBoardAnchors()
+		
 func CreateTileArrays():
 	flatBoardTilesArray = []
 	boardTilesArray = []
@@ -115,6 +120,8 @@ func RemoveTileFromBoardArrays(tile : Tile):
 func ResetRound():
 	locked = false
 	DiscardAllTilesFromBoard()
+	ResetSlotEffects()
+	PickSpecialSlots()
 	
 func ResetStage():
 	DiscardAllTilesFromBoard()
@@ -232,3 +239,42 @@ func CheckFullColumns():
 				results[i] = false
 				
 	return results
+
+func ResetSlotEffects():
+	for row in boardSlotsArray:
+		for slot in row:
+			slot.effect = Reference.BOARD_SLOT_EFFECTS.none
+			
+func PickSpecialSlots():
+	boardSlotsArray.pick_random().pick_random().effect = Reference.BOARD_SLOT_EFFECTS.double
+	
+	for row in boardSlotsArray:
+		for slot in row:
+			var randomfloat = randf()
+			if randomfloat < Globals.main.doubleSlotOdds:
+				slot.effect = Reference.BOARD_SLOT_EFFECTS.double
+			if randomfloat < Globals.main.tripleSlotOdds:
+				slot.effect = Reference.BOARD_SLOT_EFFECTS.triple
+
+func CreateBoardAnchors():
+	for row in boardSlotsArray:
+		var averagePosition : Vector2
+		var totalPosition : Vector2
+		for slot in row:
+			totalPosition += slot.position
+		averagePosition = totalPosition / numRows
+		var newAnchor = Node2D.new()
+		add_child(newAnchor)
+		newAnchor.position = averagePosition
+		rowAnchors.append(newAnchor)
+		
+	for i in 4:
+		var averagePosition : Vector2
+		var totalPosition : Vector2
+		for row in boardSlotsArray:
+			totalPosition += row[i].position
+		averagePosition = totalPosition / numColumns
+		var newAnchor = Node2D.new()
+		add_child(newAnchor)
+		newAnchor.position = averagePosition
+		columnAnchors.append(newAnchor)

@@ -16,6 +16,12 @@ func _process(delta: float) -> void:
 
 func OnScore(source, value):
 	if (source is Tile):
+		var slot = source.get_parent()
+		match slot.effect:
+			Reference.BOARD_SLOT_EFFECTS.double:
+				value *= 2
+			Reference.BOARD_SLOT_EFFECTS.triple:
+				value *= 3
 		if (value > highestTileScore):
 			highestTileScore = value
 	

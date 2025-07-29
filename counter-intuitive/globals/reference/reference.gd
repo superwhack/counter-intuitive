@@ -15,9 +15,15 @@ extends Node2D
 @export var Medal : PackedScene
 @export var FriendshipBracelet : PackedScene
 @export var Ruler : PackedScene
+@export var HermitCrab : PackedScene
 enum COLLISION_LAYERS {
 	Tiles,
 	BoardSpaces
+}
+
+enum SOUND_NAMES {
+	clink,
+	pickup
 }
 
 enum TILE_LOCATIONS {
@@ -30,9 +36,16 @@ enum TILE_LOCATIONS {
 	shop
 }
 
+enum BOARD_SLOT_EFFECTS {
+	none,
+	double,
+	triple,
+	quadruple
+}
 enum STARTING_DECKS {
 	WhiteDeck,
-	TestDeck
+	TestDeck,
+	ThreeColors
 }
 
 enum DIRECTIONS {
@@ -51,24 +64,9 @@ var Ordinals = [DIRECTIONS.northeast, DIRECTIONS.southeast, DIRECTIONS.northwest
 var Directions = Cardinals + Ordinals
 
 var TileScenes : Dictionary = {
-	"WhiteTile" : WhiteTile,
-	"BlackTile" : BlackTile,
-	"GreenTile" : GreenTile,
-	"GrayTile" : GrayTile,
-	"OrangeTile" : OrangeTile,
-	"YellowTile" : YellowTile,
-	"PinkTile" : PinkTile,
-	"RedTile" : RedTile,
-	"PurpleTile" : PurpleTile,
-	"BlueTile" : BlueTile
 }
 
 var TrinketScenes : Dictionary =  {
-	"D10" : D10,
-	"Spring" : Spring,
-	"Medal" : Medal,
-	"FriendshipBracelet" : FriendshipBracelet,
-	"Ruler" : Ruler
 }
 var CommonTiles : Array = [
 	"WhiteTile",
@@ -87,7 +85,8 @@ var CommonTrinkets : Array = [
 	"Medal",
 	"Spring",
 	"FriendshipBracelet",
-	"Ruler"
+	"Ruler",
+	"HermitCrab"
 ]
 var handSlotSize : Vector2
 var boardSlotSize : Vector2
@@ -115,6 +114,7 @@ func _ready() -> void:
 	TrinketScenes["Medal"] = Medal
 	TrinketScenes["FriendshipBracelet"] = FriendshipBracelet
 	TrinketScenes["Ruler"] = Ruler
+	TrinketScenes["HermitCrab"] = HermitCrab
 	
 	
 	pass # Replace with function body.

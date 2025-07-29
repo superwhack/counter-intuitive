@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3jbyh14pukcu"]
+[gd_scene load_steps=6 format=3 uid="uid://c3jbyh14pukcu"]
 
 [ext_resource type="Script" uid="uid://b7d314m0x5ji1" path="res://tiles/basics/visual tile/visual_tile.gd" id="1_dmhvm"]
 [ext_resource type="Texture2D" uid="uid://b1cwi5rfjpn3n" path="res://tiles/black tile/black tile.png" id="1_hqu5d"]
 [ext_resource type="PackedScene" uid="uid://c4hrpkuwu1410" path="res://tiles/tooltip/tile_tooltip.tscn" id="3_be4lr"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="4_rkx7c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqu5d"]
 radius = 31.257
@@ -37,6 +38,7 @@ offset_right = 20.0
 offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_rkx7c")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4

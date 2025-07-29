@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfqdqajxy75x1"]
+[gd_scene load_steps=3 format=3 uid="uid://dfqdqajxy75x1"]
 
 [ext_resource type="Script" uid="uid://b320xektxn3pk" path="res://score_number.gd" id="1_8rjnk"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="2_3c8og"]
 
 [node name="ScoreNumber" type="Node2D" node_paths=PackedStringArray("label")]
 z_index = 6
@@ -20,6 +21,7 @@ offset_right = 25.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_3c8og")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6

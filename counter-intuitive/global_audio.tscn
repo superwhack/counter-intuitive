@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://brh4t0kv56y5p"]
+
+[ext_resource type="Script" uid="uid://dppheas1fr0km" path="res://global_audio.gd" id="1_bhu22"]
+[ext_resource type="AudioStream" uid="uid://dh1xwjew6htx2" path="res://assets/clink.wav" id="2_tn11u"]
+[ext_resource type="AudioStream" uid="uid://b10ulo01onqwn" path="res://assets/pickup.wav" id="3_iit21"]
+
+[node name="GlobalAudio" type="Node2D"]
+script = ExtResource("1_bhu22")
+clink = ExtResource("2_tn11u")
+pickup = ExtResource("3_iit21")

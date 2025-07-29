@@ -2,10 +2,12 @@ extends Node2D
 
 @export var scoreNumberScene : PackedScene
 
+func _init() -> void:
+	Globals.scoreNumberManager = self
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SignalBus.Score.connect(OnScore)
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

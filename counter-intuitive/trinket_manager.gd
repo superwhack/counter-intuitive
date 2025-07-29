@@ -28,12 +28,14 @@ func ResetStage():
 		trinket.ResetStage()
 	
 func ResetRun():
-	pass
+	while trinketArray.size() > 0:
+		RemoveTrinket(trinketArray[0])
 
 func CreateTrinket(trinketName : String):
 	print("create trinket attempted")
 	var newTrinket = Reference.TrinketScenes[trinketName].instantiate()
 	Globals.main.add_child(newTrinket)
+	newTrinket.trinketManager = self
 	return newTrinket
 	
 func PutTrinketInPlay(trinket : Trinket):
@@ -46,6 +48,7 @@ func PutTrinketInPlay(trinket : Trinket):
 	trinket.reparent(slot)
 	
 	trinket.showPrice = false
+	trinket.sellable = true
 	
 	trinket.position = Vector2(64, 64)
 	

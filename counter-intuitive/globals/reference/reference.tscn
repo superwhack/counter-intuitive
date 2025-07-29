@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8av6svstjroi"]
+[gd_scene load_steps=18 format=3 uid="uid://c8av6svstjroi"]
 
 [ext_resource type="Script" uid="uid://06d14lwhuli" path="res://globals/reference/reference.gd" id="1_rdp6k"]
 [ext_resource type="PackedScene" uid="uid://h70tx6tvu076" path="res://tiles/white tile/whiteTile.tscn" id="2_vhla3"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cc3rqudb0n55s" path="res://medal_trinket.tscn" id="14_q8us0"]
 [ext_resource type="PackedScene" uid="uid://buy1hqs3ioxs1" path="res://friendship_bracelet_trinket.tscn" id="15_1ajpd"]
 [ext_resource type="PackedScene" uid="uid://c2uh2uwhhjicm" path="res://ruler_trinket.tscn" id="16_h7myr"]
+[ext_resource type="PackedScene" uid="uid://b314w6xupcwc2" path="res://hermit_crab_trinket.tscn" id="17_ih2a4"]
 
 [node name="Reference" type="Node2D"]
 script = ExtResource("1_rdp6k")
@@ -34,3 +35,4 @@ Spring = ExtResource("13_76xer")
 Medal = ExtResource("14_q8us0")
 FriendshipBracelet = ExtResource("15_1ajpd")
 Ruler = ExtResource("16_h7myr")
+HermitCrab = ExtResource("17_ih2a4")

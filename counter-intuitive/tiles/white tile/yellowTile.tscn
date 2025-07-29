@@ -26,7 +26,7 @@ shape = SubResource("CircleShape2D_8e5hq")
 [node name="Tile Tooltip" parent="." instance=ExtResource("3_csvoe")]
 
 [node name="Tooltip Background" parent="Tile Tooltip" index="0"]
-scale = Vector2(300, 150)
+scale = Vector2(1.2, 1.2)
 
 [node name="Tooltip Text" parent="Tile Tooltip" index="1"]
 custom_minimum_size = Vector2(300, 150)

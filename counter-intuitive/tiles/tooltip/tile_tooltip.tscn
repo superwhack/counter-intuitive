@@ -1,61 +1,35 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4hrpkuwu1410"]
 
-[ext_resource type="Texture2D" uid="uid://bao7bmapxhte2" path="res://assets/pixel.png" id="1_bohve"]
-
-[sub_resource type="FontFile" id="FontFile_bohve"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/30/0/ascent = 0.0
-cache/0/30/0/descent = 0.0
-cache/0/30/0/underline_position = 0.0
-cache/0/30/0/underline_thickness = 0.0
-cache/0/30/0/scale = 1.0
-cache/0/24/0/ascent = 0.0
-cache/0/24/0/descent = 0.0
-cache/0/24/0/underline_position = 0.0
-cache/0/24/0/underline_thickness = 0.0
-cache/0/24/0/scale = 1.0
-cache/0/20/0/ascent = 0.0
-cache/0/20/0/descent = 0.0
-cache/0/20/0/underline_position = 0.0
-cache/0/20/0/underline_thickness = 0.0
-cache/0/20/0/scale = 1.0
+[ext_resource type="Texture2D" uid="uid://b2mbto00xdqul" path="res://assets/tooltipbg.png" id="1_bohve"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="2_kkv4f"]
 
 [node name="Tile Tooltip" type="Node2D"]
 z_index = 6
-z_as_relative = false
 texture_filter = 1
 
 [node name="Tooltip Background" type="Sprite2D" parent="."]
-modulate = Color(0.839216, 0.764706, 0.933333, 0.909804)
+modulate = Color(1, 1, 1, 0.984314)
 texture_filter = 1
-scale = Vector2(300, 100)
 texture = ExtResource("1_bohve")
 
 [node name="Tooltip Text" type="Label" parent="."]
-texture_filter = 1
-custom_minimum_size = Vector2(300, 100)
+texture_filter = 2
+custom_minimum_size = Vector2(250, 100)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
+offset_left = -125.0
 offset_top = -50.0
-offset_right = 150.0
+offset_right = 125.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_kkv4f")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = SubResource("FontFile_bohve")
 theme_override_font_sizes/font_size = 20
 text = "Test"
 horizontal_alignment = 1

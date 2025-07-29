@@ -25,9 +25,6 @@ shape = SubResource("CircleShape2D_8e5hq")
 
 [node name="Tile Tooltip" parent="." instance=ExtResource("3_8rb1e")]
 
-[node name="Tooltip Text" parent="Tile Tooltip" index="1"]
-metadata/_edit_use_anchors_ = true
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 

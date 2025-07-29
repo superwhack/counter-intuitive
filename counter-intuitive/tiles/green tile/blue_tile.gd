@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
-	SignalBus.Score.emit(self, tileManager.deckArray.size())
+	SignalBus.Score.emit(self, min(10, tileManager.deckArray.size()))
 	modulate = Color(0.6, 0.6, 0.6)
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
@@ -38,5 +38,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Blue Tile\nScore points equal to the number of Tiles currently in your deck."
+	description = "Blue Tile\nScore points equal to the number of Tiles currently in your deck. (Max 10)"
 	tooltipLabel.text = description

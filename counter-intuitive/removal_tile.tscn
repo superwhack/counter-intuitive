@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dttgakcywqhjo"]
+
+[ext_resource type="Script" uid="uid://dy732bkukjic4" path="res://removal_tile.gd" id="1_urhoq"]
+
+[node name="RemovalTile" type="Node2D"]
+script = ExtResource("1_urhoq")

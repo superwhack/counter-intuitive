@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 
 
 func Trigger():
-	SignalBus.Score.emit(self, min(main.tokens, 20))
+	SignalBus.Score.emit(self, min(main.tokens, 10))
 	modulate = Color(0.6, 0.6, 0.6)
 	get_tree().create_timer(0.5).timeout.connect(func():SignalBus.PullNextTrigger.emit())
 	get_tree().create_timer(0.5).timeout.connect(func():tempresetcolor())
@@ -38,5 +38,5 @@ func CreateCallable() -> Callable:
 	return unbound
 	
 func UpdateTooltipLabel():
-	description = "Green Tile\nScore points equal to your tokens (Max 20)"
+	description = "Green Tile\nScore points equal to your tokens (Max 10)"
 	tooltipLabel.text = description

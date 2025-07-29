@@ -6,7 +6,7 @@
 [node name="Visual Decks Manager" type="Control" node_paths=PackedStringArray("visualDeck", "visualDeckScroll", "visualDiscard", "visualDiscardScroll")]
 layout_mode = 3
 anchors_preset = 0
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_4qgfl")
 visualDeck = NodePath("DeckScroll/Visual Deck")
 visualDeckScroll = NodePath("DeckScroll")
@@ -16,29 +16,34 @@ visualTileSlotScene = ExtResource("2_vg58p")
 
 [node name="DeckScroll" type="ScrollContainer" parent="."]
 clip_contents = false
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(400, 300)
 layout_mode = 0
 offset_top = 63.0
 offset_right = 400.0
-offset_bottom = 463.0
+offset_bottom = 363.0
 
 [node name="Visual Deck" type="HFlowContainer" parent="DeckScroll"]
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
+last_wrap_alignment = 1
 
 [node name="DiscardScroll" type="ScrollContainer" parent="."]
+visible = false
 clip_contents = false
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(400, 300)
 layout_mode = 0
 offset_top = 63.0
 offset_right = 400.0
-offset_bottom = 463.0
+offset_bottom = 363.0
 
 [node name="Visual Discard" type="HFlowContainer" parent="DiscardScroll"]
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
+last_wrap_alignment = 1
 
 [node name="Button Holder" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(400, 60)

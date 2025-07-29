@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://daw4vxupxppab"]
+[gd_scene load_steps=9 format=3 uid="uid://daw4vxupxppab"]
 
 [ext_resource type="Script" uid="uid://bq5kwctx12xwy" path="res://shop_manager.gd" id="1_3rk3w"]
 [ext_resource type="PackedScene" uid="uid://sv672axhrs2a" path="res://shop_tile.tscn" id="2_qhy2r"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://4vtoc8ixnn6n" path="res://trinket_slot.tscn" id="3_dfcim"]
 [ext_resource type="PackedScene" uid="uid://6gjlbr1rfpk5" path="res://shop_trinket.tscn" id="3_ilwm6"]
 [ext_resource type="Texture2D" uid="uid://b5emarg61ko06" path="res://assets/shopslab.png" id="4_8t7m5"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="6_ko4n7"]
+[ext_resource type="PackedScene" uid="uid://1qhydv7clgta" path="res://tile_removal_manager.tscn" id="7_ux2ae"]
 
-[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "shopTrinketsContainer", "realTilesNode", "maxTilesButton", "handSizeButton", "roundsPerStageButton")]
+[node name="Shop Manager" type="Node2D" node_paths=PackedStringArray("shopTilesContainer", "shopTrinketsContainer", "realTilesNode", "maxTilesButton", "handSizeButton", "roundsPerStageButton", "tileRemovalManager", "removalButton", "rerollButton", "tempSlab")]
 script = ExtResource("1_3rk3w")
 shopTilesContainer = NodePath("HFlowContainer")
 shopTrinketsContainer = NodePath("trinketsNode(TEMP)")
@@ -19,6 +21,10 @@ trinketSlotScene = ExtResource("3_dfcim")
 maxTilesButton = NodePath("Control/HFlowContainer2/Max Tiles Button")
 handSizeButton = NodePath("Control/HFlowContainer2/Hand Size Button")
 roundsPerStageButton = NodePath("Control/HFlowContainer2/Rounds Per Stage Button")
+tileRemovalManager = NodePath("TileRemovalManager")
+removalButton = NodePath("Open Removal")
+rerollButton = NodePath("Reroll")
+tempSlab = NodePath("ShopSlab3")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(640, 100)
@@ -37,15 +43,16 @@ offset_left = 500.0
 offset_top = 600.0
 offset_right = 780.0
 offset_bottom = 700.0
+theme = ExtResource("6_ko4n7")
 text = "Leave Shop"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1039.0
-offset_top = 433.0
-offset_right = 1257.0
-offset_bottom = 715.0
+offset_left = 1040.0
+offset_top = 430.0
+offset_right = 1258.0
+offset_bottom = 712.0
 
 [node name="HFlowContainer2" type="VFlowContainer" parent="Control"]
 custom_minimum_size = Vector2(150, 300)
@@ -71,21 +78,37 @@ alignment = 1
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("6_ko4n7")
 text = "+ Max Tiles"
 
 [node name="Rounds Per Stage Button" type="Button" parent="Control/HFlowContainer2"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+theme = ExtResource("6_ko4n7")
 text = "+ Max Tiles"
 
 [node name="Max Tiles Button" type="Button" parent="Control/HFlowContainer2"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+theme = ExtResource("6_ko4n7")
 text = "+ Max Tiles"
 
 [node name="ShopSlab" type="Sprite2D" parent="."]
 z_index = -5
 position = Vector2(640, 350)
+scale = Vector2(0.62069, 0.833333)
+texture = ExtResource("4_8t7m5")
+
+[node name="ShopSlab4" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(639, 646)
+scale = Vector2(0.569895, 0.691059)
+texture = ExtResource("4_8t7m5")
+
+[node name="ShopSlab3" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(640, 145)
+scale = Vector2(0.88, 1)
 texture = ExtResource("4_8t7m5")
 
 [node name="ShopSlab2" type="Sprite2D" parent="."]
@@ -96,22 +119,96 @@ scale = Vector2(0.408247, 1.28)
 texture = ExtResource("4_8t7m5")
 
 [node name="trinketsNode(TEMP)" type="HFlowContainer" parent="."]
-custom_minimum_size = Vector2(900, 100)
+custom_minimum_size = Vector2(900, 128)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 195.0
-offset_top = 14.0
+offset_top = 72.0
 offset_right = 1095.0
-offset_bottom = 114.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
+[node name="TileRemovalManager" parent="." instance=ExtResource("7_ux2ae")]
+visible = false
+z_index = 200
+
+[node name="DeckScroll" parent="TileRemovalManager" index="1"]
+clip_contents = false
+
+[node name="Close Removal" type="Button" parent="TileRemovalManager"]
+custom_minimum_size = Vector2(150, 50)
+offset_left = 565.0
+offset_top = 100.0
+offset_right = 715.0
+offset_bottom = 150.0
+theme = ExtResource("6_ko4n7")
+text = "Close Removal"
+
+[node name="Open Removal" type="Button" parent="."]
+custom_minimum_size = Vector2(175, 50)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1060.0
+offset_top = 320.0
+offset_right = 1235.0
+offset_bottom = 370.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("6_ko4n7")
+text = "Remove Tile ($)"
+
+[node name="Reroll" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+offset_left = 565.0
+offset_top = 460.0
+offset_right = 715.0
+offset_bottom = 510.0
+theme = ExtResource("6_ko4n7")
+text = "Reroll"
+
+[node name="Shopslab" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(640, 485)
+scale = Vector2(0.364532, 0.364532)
+texture = ExtResource("4_8t7m5")
+
+[node name="Shopslab3" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(1147.23, 115.453)
+scale = Vector2(0.364532, 0.364532)
+texture = ExtResource("4_8t7m5")
+
+[node name="Shopslab2" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(1140, 344)
+scale = Vector2(0.364532, 0.364532)
+texture = ExtResource("4_8t7m5")
+
+[node name="View Trinkets" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+offset_left = 1055.23
+offset_top = 90.4532
+offset_right = 1240.23
+offset_bottom = 140.453
+theme = ExtResource("6_ko4n7")
+text = "Toggle Owned Trinkets"
+
 [connection signal="pressed" from="Leave Button" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="Control/HFlowContainer2/Hand Size Button" to="." method="AttemptToBuyHandSize"]
 [connection signal="pressed" from="Control/HFlowContainer2/Rounds Per Stage Button" to="." method="AttemptToBuyRoundsPerStage"]
 [connection signal="pressed" from="Control/HFlowContainer2/Max Tiles Button" to="." method="AttemptToBuyMaxTiles"]
+[connection signal="pressed" from="TileRemovalManager/Close Removal" to="." method="CloseRemovalMenu"]
+[connection signal="pressed" from="Open Removal" to="." method="OpenRemovalMenu"]
+[connection signal="pressed" from="Reroll" to="." method="AttemptReroll"]
+[connection signal="pressed" from="View Trinkets" to="." method="ToggleTrinkets"]
+
+[editable path="TileRemovalManager"]

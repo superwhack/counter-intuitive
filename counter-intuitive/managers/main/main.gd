@@ -64,7 +64,7 @@ var tokens : int:
 		tokens = value
 		uiManager.UpdateTokens()
 		
-var maxHandSize : int = 20
+var maxHandSize : int = 10
 var handSize : int:
 	set(value):
 		handSize = min(value, maxHandSize)
@@ -79,6 +79,8 @@ var tilesMovedRound : int
 var tilesMovedStage : int
 var tilesMovedRun
 
+var doubleSlotOdds = 0.05
+var tripleSlotOdds = 0.01
 @export var gameOverNodeTemp : Node2D
 
 signal TileTriggersAdded
@@ -99,7 +101,7 @@ func _ready() -> void:
 	ShowScreen(mainMenuScreen)
 	
 	# TEMPORARY!
-	selectedStartingDeck = Reference.STARTING_DECKS.TestDeck
+	selectedStartingDeck = Reference.STARTING_DECKS.ThreeColors
 	
 	# CONNECTING SIGNALS
 	SignalBus.PlayButtonPressed.connect(StartTriggerSequence)
@@ -117,7 +119,9 @@ func _process(delta: float) -> void:
 			
 	if (Input.is_action_just_pressed("toggle_fullscreen")):
 		if (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED):
+			#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+			
 		else:	
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	currentScreen.modulate = lerp(currentScreen.modulate, Color(1, 1, 1, 1,), delta * 3)
@@ -192,6 +196,7 @@ func ResetRun():
 	tileManager.ResetRun()
 	board.ResetRun()
 	shopManager.ResetShop()
+	trinketManager.ResetRun()
 	ResetStage()
 	# TEMP!
 	gameOverNodeTemp.visible = false
@@ -208,8 +213,19 @@ func UpdateFromGlobals():
 func PullNextTrigger():
 	# Are we at the end of the sequence?
 	if (triggerIndex == triggerArray.size()):
-		print(board.CheckFullRows())
-		print(board.CheckFullColumns())
+		
+		var fullRowsResult = board.CheckFullRows()
+		
+		for i in board.numRows:
+			if (fullRowsResult[i]):
+				SignalBus.Score.emit(board.rowAnchors[i], 8)
+			
+		var fullColsResult = board.CheckFullColumns()
+		
+		for i in board.numColumns:
+			if (fullColsResult[i]):
+				SignalBus.Score.emit(board.columnAnchors[i], 8)
+				
 		# check for loss
 		if (roundsRemaining == 0):
 			if (score >= goal):
@@ -218,6 +234,8 @@ func PullNextTrigger():
 				gameOverNodeTemp.visible = true
 				get_tree().create_timer(2).timeout.connect(func():gameOverNodeTemp.visible = false)
 				get_tree().create_timer(2).timeout.connect(func():ShowScreen(mainMenuScreen))
+				get_tree().create_timer(2).timeout.connect(func():ResetRun())
+				
 		StartRound()
 	else:
 		triggerArray[triggerIndex].call()
@@ -281,8 +299,17 @@ func CreateStartingDeck():
 				
 			for i in 20: 
 				tileManager.CreatePlayTileToDeck(Reference.TileScenes["WhiteTile"])
-				
-				
+		Reference.STARTING_DECKS.ThreeColors:
+			tokens = 10
+			var chosenNames = []
+			while(chosenNames.size() < 3):
+				var name = Reference.CommonTiles.pick_random()
+				if (chosenNames.has(name) == false):
+					chosenNames.append(name)
+					
+			for i in 12:
+				tileManager.CreatePlayTileToDeck(Reference.TileScenes[chosenNames.pick_random()])
+					
 
 func GameOver():
 	ShowScreen(mainMenuScreen)
@@ -302,7 +329,16 @@ func GetLastTileTrigger():
 	return callable
 	
 func OnScoreSignal(source, value): 
+	# Creating the score number could be done with a signal, but this ensures final values are correct
+	if (source is Tile):
+		var slot = source.get_parent()
+		match slot.effect:
+			Reference.BOARD_SLOT_EFFECTS.double:
+				value *= 2
+			Reference.BOARD_SLOT_EFFECTS.triple:
+				value *= 3
 	score += value
+	Globals.scoreNumberManager.OnScore(source, value)
 	print(source)
 	
 func OnTileMovedSignal(tile, source, direction):
@@ -316,6 +352,7 @@ func MoveToShop():
 	shopManager.StartShop()
 	
 func MoveToBoard():
+	tileManager.reparent(gameplayScreen)
 	shopManager.ResetShop()
 	ShowScreen(gameplayScreen)
 	StartStage()

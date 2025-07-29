@@ -11,6 +11,9 @@ var rng : RandomNumberGenerator
 var visualDecksManager : VisualDecksManager
 var shopManager : ShopManager
 var trinketManager : TrinketManager
+var scoreNumberManager : Node2D
+var tileRemovalManager : TileRemovalManager
+var globalAudioManager : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

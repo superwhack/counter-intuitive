@@ -24,6 +24,15 @@ var handSizePrice : int = 6
 @export var roundsPerStageButton : Button
 var roundsPerStagePrice : int = 10
 
+@export var tileRemovalManager : TileRemovalManager
+var removalPrice : int = 5
+
+@export var removalButton : Button
+@export var rerollButton : Button
+var rerollPrice : int = 1
+var shopLocked = false
+var trinketsShown = false
+@export var tempSlab : Sprite2D
 func _init() -> void:
 	Globals.shopManager = self
 # Called when the node enters the scene tree for the first time.
@@ -88,6 +97,11 @@ func ResetRun():
 	roundsPerStagePrice = 10
 	
 func ResetShop():
+	if(trinketsShown):
+		ToggleTrinkets()
+	
+	rerollPrice = 1
+	
 	for shopTile in shopTilesContainer.get_children():
 		shopTilesArray.erase(shopTile)
 		shopTile.queue_free()
@@ -105,7 +119,7 @@ func StartShop():
 	
 func AttemptToBuy(shopTile):
 	print("purchase attempted")
-	if (Globals.main.tokens >= shopTile.realTile.price):
+	if (Globals.main.tokens >= shopTile.realTile.price && !shopLocked && !trinketsShown):
 		# deduct the money
 		Globals.main.tokens -= shopTile.realTile.price
 		#remove it from the array (so that the real tile doesnt get deleted i think)
@@ -122,7 +136,7 @@ func AttemptToBuy(shopTile):
 		print("FAILED!")
 
 func AttemptToBuyTrinket(shopTrinket):
-	if (Globals.main.tokens >= shopTrinket.trinket.price):
+	if (Globals.main.tokens >= shopTrinket.trinket.price && !shopLocked && Globals.trinketManager.trinketArray.size() < 5):
 		# deduct the money
 		Globals.main.tokens -= shopTrinket.trinket.price
 		#remove it from the array (so that the real tile doesnt get deleted i think)
@@ -136,21 +150,21 @@ func AttemptToBuyTrinket(shopTrinket):
 		print("FAILED!")
 		
 func AttemptToBuyMaxTiles():
-	if (Globals.main.tokens >= maxTilesPrice):
+	if (Globals.main.tokens >= maxTilesPrice && !shopLocked):
 		Globals.main.tokens -= maxTilesPrice
 		Globals.main.maxTilesPerRound += 1
 		IncreaseUpgradePrices()
 		maxTilesPrice *= 1.2
 		
 func AttemptToBuyHandSize():
-	if (Globals.main.tokens >= handSizePrice):
+	if (Globals.main.tokens >= handSizePrice && !shopLocked):
 		Globals.main.tokens -= handSizePrice
 		Globals.main.handSize += 1
 		IncreaseUpgradePrices()
 		handSizePrice *= 1.2
 		
 func AttemptToBuyRoundsPerStage():
-	if (Globals.main.tokens >= roundsPerStagePrice):
+	if (Globals.main.tokens >= roundsPerStagePrice && !shopLocked):
 		Globals.main.tokens -= roundsPerStagePrice
 		Globals.main.maxRounds += 1
 		IncreaseUpgradePrices()
@@ -160,6 +174,8 @@ func UpdateButtonText():
 	maxTilesButton.text = "+ Tiles Per Round ($" + str(maxTilesPrice) + ")"
 	handSizeButton.text = "+ Hand Size ($" + str(handSizePrice) + ")"
 	roundsPerStageButton.text = "+ Rounds Per Stage ($" + str(roundsPerStagePrice) + ")"
+	removalButton.text = "Remove Tile ($" + str(removalPrice) + ")"
+	rerollButton.text = "Reroll Shop ($" + str(rerollPrice) + ")"
 	
 func IncreaseUpgradePrices():
 	maxTilesPrice *= 1.2
@@ -169,4 +185,53 @@ func IncreaseUpgradePrices():
 	
 	
 func _on_leave_button_pressed() -> void:
-	Globals.main.MoveToBoard()
+	if (!shopLocked):
+		Globals.main.MoveToBoard()
+
+func AttemptPurchaseRemoval(removalTile):
+	if (Globals.main.tokens >= removalPrice):
+		Globals.main.tokens -= removalPrice
+		tileRemovalManager.AttemptRemoval(removalTile)
+		CloseRemovalMenu()
+		removalPrice *= 1.2
+
+func OpenRemovalMenu():
+	tileRemovalManager.visible = true
+	shopLocked = true
+	tileRemovalManager.UpdateVisualDeck()
+	
+
+func CloseRemovalMenu():
+	shopLocked = false
+	tileRemovalManager.visible = false
+
+func AttemptReroll():
+	if (Globals.main.tokens >= rerollPrice):
+		Globals.main.tokens -= rerollPrice
+		for shopTile in shopTilesContainer.get_children():
+			shopTilesArray.erase(shopTile)
+			shopTile.queue_free()
+			
+		for shopTrinket in shopTrinketsContainer.get_children():
+			shopTrinketsArray.erase(shopTrinket)
+			shopTrinket.queue_free()
+			
+		for i in 3:
+			CreateShopTile(Reference.GetCommonTileName())
+		
+		for i in 3:
+			CreateShopTrinket(Reference.CommonTrinkets.pick_random())
+		rerollPrice += 1
+
+func ToggleTrinkets():
+	if (trinketsShown):
+		Globals.trinketManager.reparent(Globals.main.gameplayScreen)
+		shopTrinketsContainer.visible = true
+		tempSlab.visible = true
+	else:
+		Globals.trinketManager.reparent(self)
+		shopTrinketsContainer.visible = false
+		tempSlab.visible = false
+		
+		
+	trinketsShown = !trinketsShown

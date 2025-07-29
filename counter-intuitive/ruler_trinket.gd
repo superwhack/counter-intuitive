@@ -24,11 +24,12 @@ func Trigger():
 	modulate = Color(0.6, 0.6, 0.6)
 	var rowResults = Globals.board.CheckFullRows()
 	var colResults = Globals.board.CheckFullColumns()
+	
 	for result in rowResults:
 		if result:
 			SignalBus.Score.emit(self, score)
 			
-	for result in rowResults:
+	for result in colResults:
 		if result:
 			SignalBus.Score.emit(self, score)
 			

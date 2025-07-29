@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bethrlvjsheva"]
+[gd_scene load_steps=5 format=3 uid="uid://bethrlvjsheva"]
 
 [ext_resource type="Script" uid="uid://du3ix8pnmhwjk" path="res://board/board slot/board_slot.gd" id="1_k10hq"]
 [ext_resource type="Texture2D" uid="uid://la3sh5m7rgss" path="res://assets/board slot.png" id="2_kpfnb"]
+[ext_resource type="Theme" uid="uid://cqwtq5t3fl4j0" path="res://basic_theme.tres" id="3_s1ruy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3f3s"]
 size = Vector2(64, 64)
@@ -20,3 +21,19 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_b3f3s")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_s1ruy")
+horizontal_alignment = 1
+vertical_alignment = 1
